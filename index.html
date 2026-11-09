@@ -653,7 +653,7 @@ input[type=range]{width:100%;accent-color:var(--g)}
       </a>
       <p class="mt-3 text-sm text-[color:var(--mut)]">Réponse directe de l'équipe · +229 01 40 15 13 48</p>
     </div>
-    <p class="mt-6 mono text-[color:var(--y)] break-all">souveraincode@gmail.com</p>
+    <p class="mt-6 mono text-[color:var(--y)] break-all">hello@souveraincode.com</p>
   </div>
   <form id="f" class="card static lg:col-span-3 grid gap-5" novalidate>
     <!-- Anti-spam (honeypot) -->
@@ -1017,7 +1017,7 @@ const waUrl=t=>'https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(t);
 })();
 
 /* ====== Formulaire de contact : Web3Forms via fetch() ======
-   1. Créez une clé gratuite sur https://web3forms.com avec l'e-mail souveraincode@gmail.com
+   1. Créez une clé gratuite sur https://web3forms.com avec l'e-mail contact@souveraincode.com
    2. Collez-la ci-dessous à la place de VOTRE_CLE_WEB3FORMS                                   */
 const WEB3FORMS_KEY='VOTRE_CLE_WEB3FORMS';
 
@@ -1028,7 +1028,7 @@ document.getElementById('f').addEventListener('submit',async e=>{
   out.textContent='';
   if(!n||!/^\S+@\S+\.\S+$/.test(em)||!m){out.textContent='Renseignez votre nom, un e-mail valide et un message.';out.style.color='var(--r)';return;}
   if(f.botcheck.checked)return;
-  if(WEB3FORMS_KEY==='VOTRE_CLE_WEB3FORMS'){toast('err','Clé Web3Forms manquante','Ajoutez votre clé d\'accès dans le code pour activer l\'envoi.');return;}
+  if(WEB3FORMS_KEY==='fd6cbf1c-3e84-49af-a44a-16addf67015f'){toast('err','Clé Web3Forms manquante','Ajoutez votre clé d\'accès dans le code pour activer l\'envoi.');return;}
   btn.disabled=true;lab.innerHTML='<span class="spinner"></span> Envoi en cours...';
   try{
     const res=await fetch('https://api.web3forms.com/submit',{
@@ -1042,7 +1042,7 @@ document.getElementById('f').addEventListener('submit',async e=>{
       f.reset();out.textContent='';
     }else throw new Error(data.message||'Erreur');
   }catch(err){
-    toast('err','Envoi impossible','Réessayez dans un instant ou écrivez à souveraincode@gmail.com.');
+    toast('err','Envoi impossible','Réessayez dans un instant ou écrivez à hello@souveraincode.com.');
   }finally{
     btn.disabled=false;lab.textContent='Envoyer ma demande';
   }
