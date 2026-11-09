@@ -1,4 +1,3 @@
-
 # 👑 Souverain Code (`souveraincode.com`)
 
 > *"Le numérique souverain commence par un code que vous maîtrisez."*
@@ -29,7 +28,7 @@ Cette vitrine a été conçue pour être ultra-rapide, performante et autonome :
 
 ## 📬 Contact & Support
 
-- **Email :** [souveraincode@gmail.com](mailto:souveraincode@gmail.com)
+- **Email :** [hello@souveraincode.com](mailto:hello@souveraincode.com)
 - **Développeur :** DevZack
 - **Hébergement :** Vercel
 
