@@ -696,7 +696,7 @@ input[type=range]{width:100%;accent-color:var(--g)}
       </select></div>
     <div><label for="m">Votre message</label><textarea id="m" name="message" rows="6" class="field mt-2" required></textarea></div>
     <div class="flex flex-wrap items-center gap-4">
-      <button id="send" class="btn solid" type="submit"><span id="sendL">Envoyer ma demande</span></button>
+      <button id="send" class="btn solid" type="submit"><svg id="sendIco" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7.5l8.5 6 8.5-6"/></svg><span id="sendL">Envoyer par e-mail</span></button>
       <a id="waForm" class="wa" href="https://wa.me/2290140151348" target="_blank" rel="noopener" aria-label="Envoyer ce message sur WhatsApp">
         <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><use href="#waIco"/></svg>
         <span>Ou via WhatsApp</span>
@@ -1065,7 +1065,7 @@ const waUrl=t=>'https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(t);
 
 /* ====== Formulaire de contact : Web3Forms via fetch() ======
    1. Créez une clé gratuite sur https://web3forms.com avec l'e-mail contact@souveraincode.com
-   2. Collez-la ci-dessous à la place de VOTRE_CLE_WEB3FORMS                                   */
+   2. Collez-la dans WEB3FORMS_KEY ci-dessous (ne la recopiez pas dans le test juste après)      */
 const WEB3FORMS_KEY='fd6cbf1c-3e84-49af-a44a-16addf67015f';
 
 document.getElementById('f').addEventListener('submit',async e=>{
@@ -1075,8 +1075,8 @@ document.getElementById('f').addEventListener('submit',async e=>{
   out.textContent='';
   if(!n||!/^\S+@\S+\.\S+$/.test(em)||!m){out.textContent='Renseignez votre nom, un e-mail valide et un message.';out.style.color='var(--r)';return;}
   if(f.botcheck.checked)return;
-  if(WEB3FORMS_KEY==='fd6cbf1c-3e84-49af-a44a-16addf67015f'){toast('err','Clé Web3Forms manquante','Ajoutez votre clé d\'accès dans le code pour activer l\'envoi.');return;}
-  btn.disabled=true;lab.innerHTML='<span class="spinner"></span> Envoi en cours...';
+  if(!WEB3FORMS_KEY||WEB3FORMS_KEY==='VOTRE_CLE_WEB3FORMS'){toast('err','Clé Web3Forms manquante','Ajoutez votre clé d\'accès dans le code pour activer l\'envoi.');return;}
+  btn.disabled=true;document.getElementById('sendIco').hidden=true;lab.innerHTML='<span class="spinner"></span> Envoi en cours...';
   try{
     const res=await fetch('https://api.web3forms.com/submit',{
       method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
@@ -1091,7 +1091,7 @@ document.getElementById('f').addEventListener('submit',async e=>{
   }catch(err){
     toast('err','Envoi impossible','Réessayez dans un instant ou écrivez à hello@souveraincode.com.');
   }finally{
-    btn.disabled=false;lab.textContent='Envoyer ma demande';
+    btn.disabled=false;document.getElementById('sendIco').hidden=false;lab.textContent='Envoyer par e-mail';
   }
 });
 </script>
