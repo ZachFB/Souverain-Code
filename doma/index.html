@@ -1,2215 +1,439 @@
 <!doctype html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover"
-    />
-    <title>Doma — la gestion locative sans tracasserie | Souverain Code</title>
-    <meta
-      name="description"
-      content="Doma aide les propriétaires et agences d’Afrique de l’Ouest à suivre les loyers, relancer sur WhatsApp et encaisser par Mobile Money."
-    />
-    <meta name="theme-color" content="#100B09" />
-    <meta
-      property="og:title"
-      content="Doma — la gestion locative sans tracasserie"
-    />
-    <meta
-      property="og:description"
-      content="Suivez les loyers, relancez sur WhatsApp, encaissez par Mobile Money."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/doma/logo.png" />
-    <link rel="icon" href="/doma/logo.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <script>
-      (function () {
-        var t = "dark";
-        try {
-          var s = localStorage.getItem("doma-theme");
-          if (s === "light" || s === "dark") t = s;
-        } catch (e) {}
-        document.documentElement.setAttribute("data-theme", t);
-        document.documentElement.classList.add("js");
-      })();
-    </script>
-    <style>
-      :root {
-        --bg: #f6eede;
-        --bg2: #ede0c6;
-        --card: #fffcf5;
-        --ink: #241c15;
-        --mut: #5e5348;
-        --line: rgba(110, 60, 30, 0.16);
-        --brand: #a8462f;
-        --brand2: #8a3722;
-        --gold: #9a6512;
-        --roof: #8a3722;
-        --wall: #a8462f;
-        --b1: #7a2f1d;
-        --b2: #b4522f;
-        --bi: #f6eede;
-        --dia: #f2c46b;
-        --glow: rgba(192, 88, 60, 0.2);
-        --glow2: rgba(217, 166, 72, 0.22);
-        --sh:
-          0 22px 40px -28px rgba(90, 40, 15, 0.5),
-          0 2px 6px -3px rgba(90, 40, 15, 0.14);
-        --hv: #8a3722;
-        --hvi: #f6eede;
-        --nav: rgba(246, 238, 222, 0.8);
-        color-scheme: light;
-      }
-      :root[data-theme="dark"] {
-        --bg: #100b09;
-        --bg2: #17100d;
-        --card: #1d1411;
-        --ink: #f6eede;
-        --mut: #b9aea0;
-        --line: rgba(246, 238, 222, 0.12);
-        --brand: #d2684a;
-        --brand2: #c0583c;
-        --gold: #d9a648;
-        --roof: #f6eede;
-        --wall: #d9a08c;
-        --b1: #1a0e0a;
-        --b2: #3a1c13;
-        --glow: rgba(192, 88, 60, 0.28);
-        --glow2: rgba(217, 166, 72, 0.1);
-        --sh: 0 24px 44px -30px #000;
-        --hv: #f6eede;
-        --hvi: #8a3722;
-        --nav: rgba(16, 11, 9, 0.72);
-        color-scheme: dark;
-      }
-      * {
-        box-sizing: border-box;
-        margin: 0;
-      }
-      :root {
-        padding-top: env(safe-area-inset-top, 0px);
-        padding-bottom: env(safe-area-inset-bottom, 0px);
-      }
-      html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 96px;
-        -webkit-text-size-adjust: 100%;
-        overflow-x: clip;
-      }
-      body {
-        background: var(--bg);
-        color: var(--ink);
-        font:
-          17px/1.65 "Work Sans",
-          system-ui,
-          sans-serif;
-        overflow-x: clip;
-        transition:
-          background 0.4s,
-          color 0.4s;
-      }
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        background:
-          radial-gradient(55% 45% at 80% 6%, var(--glow), transparent 70%),
-          radial-gradient(40% 40% at 6% 42%, var(--glow2), transparent 70%);
-      }
-      h1,
-      h2,
-      h3 {
-        font-family: Fraunces, Georgia, serif;
-        line-height: 1.08;
-        letter-spacing: -0.02em;
-      }
-      h1 {
-        font-size: clamp(40px, 6.2vw, 70px);
-        font-weight: 700;
-      }
-      h2 {
-        font-size: clamp(30px, 4vw, 46px);
-        font-weight: 600;
-        margin-bottom: 14px;
-      }
-      h3 {
-        font-size: 21px;
-        font-weight: 600;
-        margin-bottom: 8px;
-      }
-      p {
-        max-width: 62ch;
-      }
-      a {
-        color: var(--brand);
-      }
-      :focus-visible {
-        outline: 3px solid var(--gold);
-        outline-offset: 3px;
-        border-radius: 8px;
-      }
-      .wrap {
-        max-width: 1140px;
-        margin: 0 auto;
-        padding: 0 24px;
-      }
-      section {
-        padding: 96px 0;
-      }
-      .sub {
-        color: var(--mut);
-        font-size: 19px;
-        max-width: 56ch;
-      }
-      .eyebrow {
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-        color: var(--brand);
-        margin-bottom: 14px;
-      }
-      .prog {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        z-index: 70;
-        background: linear-gradient(90deg, var(--brand), var(--gold));
-        transform-origin: left;
-        transform: scaleX(0);
-      }
-      .nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 50;
-        padding-top: env(safe-area-inset-top, 0px);
-        background: var(--nav);
-        -webkit-backdrop-filter: blur(14px);
-        backdrop-filter: blur(14px);
-        border-bottom: 1px solid var(--line);
-      }
-      .nav .wrap {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        height: 78px;
-      }
-      .bb {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        min-width: 0;
-      }
-      .logo {
-        display: block;
-        width: 76px;
-        height: 71px;
-        overflow: visible;
-      }
-      .sc {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        white-space: nowrap;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 1;
-        color: var(--sc-c, var(--brand2));
-        padding: 9px 14px;
-        border-radius: 999px;
-        border: 1px solid color-mix(in srgb, var(--brand2) 45%, transparent);
-        background: color-mix(in srgb, var(--brand2) 7%, transparent);
-        transition: 0.25s;
-      }
-      :root[data-theme="dark"] .sc {
-         --sc-c: var(--ink);
-      }
-      .sc .by {
-        font-weight: 400;
-        opacity: 0.7;
-      }
-      .sc svg {
-        width: 14px;
-        height: 14px;
-        stroke: currentColor;
-        fill: none;
-        stroke-width: 2.2;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        transition: transform 0.25s;
-      }
-      .sc:hover {
-        background: var(--hv);
-        color: var(--hvi);
-        border-color: var(--hv);
-        transform: translateY(-1px);
-      }
-      .sc:hover svg {
-        transform: translate(2px, -2px);
-      }
-      .links {
-        display: flex;
-        gap: 26px;
-        font-size: 15px;
-      }
-      .links a {
-        color: var(--mut);
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-      .links a:hover {
-        color: var(--ink);
-      }
-      .act {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .theme {
-        width: 42px;
-        height: 42px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        cursor: pointer;
-        color: var(--ink);
-        background: var(--card);
-        border: 1px solid var(--line);
-        transition: transform 0.3s;
-      }
-      .theme:hover {
-        transform: rotate(16deg);
-      }
-      .theme svg {
-        grid-area: 1/1;
-        width: 19px;
-        height: 19px;
-        fill: none;
-        stroke: currentColor;
-        stroke-width: 1.9;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-      .theme .sun {
-        display: none;
-      }
-      :root[data-theme="dark"] .theme .sun {
-        display: block;
-      }
-      :root[data-theme="dark"] .theme .moon {
-        display: none;
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px 26px;
-        border-radius: 12px;
-        font:
-          600 16px "Work Sans",
-          sans-serif;
-        text-decoration: none;
-        cursor: pointer;
-        border: 0;
-        color: #fff;
-        background: linear-gradient(180deg, #c85f42, #8a3722);
-        box-shadow: 0 12px 26px -12px rgba(138, 55, 34, 0.85);
-        transition:
-          transform 0.25s,
-          filter 0.25s;
-      }
-      .btn:hover {
-        transform: translateY(-2px);
-        filter: brightness(1.08);
-      }
-      .btn.sm {
-        padding: 10px 18px;
-        font-size: 15px;
-      }
-      .btn.ghost {
-        background: var(--card);
-        color: var(--brand2);
-        border: 1px solid color-mix(in srgb, var(--brand2) 45%, transparent);
-        box-shadow: none;
-      }
-      :root[data-theme="dark"] .btn.ghost {
-        color: var(--ink);
-        border-color: var(--line);
-      }
-      .btn.ghost:hover {
-        background: var(--brand2);
-        color: #f6eede;
-      }
-      .hero {
-        padding: 150px 0 90px;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 56px;
-        align-items: center;
-      }
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        border: 1px solid var(--line);
-        background: var(--card);
-        border-radius: 999px;
-        padding: 7px 16px;
-        font-size: 14px;
-        color: var(--mut);
-        margin-bottom: 24px;
-        box-shadow: var(--sh);
-      }
-      .pill i {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--gold);
-        box-shadow: 0 0 0 0 color-mix(in srgb, var(--gold) 60%, transparent);
-        animation: ping 2.2s infinite;
-      }
-      @keyframes ping {
-        70% {
-          box-shadow: 0 0 0 10px transparent;
-        }
-      }
-      h1 em {
-        font-style: normal;
-        background: linear-gradient(100deg, var(--brand), var(--gold));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-      .hero .sub {
-        margin: 22px 0 32px;
-      }
-      .cta {
-        display: flex;
-        gap: 14px;
-        flex-wrap: wrap;
-      }
-      .proof {
-        display: flex;
-        gap: 10px 26px;
-        flex-wrap: wrap;
-        margin-top: 38px;
-        color: var(--mut);
-        font-size: 15px;
-      }
-      .proof span {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-      .proof svg {
-        width: 18px;
-        height: 18px;
-        stroke: var(--brand);
-        fill: none;
-        stroke-width: 2.4;
-      }
-      .stage {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        padding: 0 8px;
-      }
-      .stage::before {
-        content: "";
-        position: absolute;
-        width: 340px;
-        height: 340px;
-        border-radius: 50%;
-        background: radial-gradient(circle, var(--glow), transparent 68%);
-        top: 6%;
-        filter: blur(26px);
-        animation: br 7s ease-in-out infinite;
-      }
-      @keyframes br {
-        50% {
-          transform: scale(1.12);
-          opacity: 0.7;
-        }
-      }
-      .pw {
-        position: relative;
-      }
-      .fl {
-        position: absolute;
-        z-index: 6;
-        display: none;
-        align-items: center;
-        gap: 11px;
-        padding: 10px 14px;
-        border-radius: 16px;
-        background: var(--card);
-        border: 1px solid var(--line);
-        box-shadow: var(--sh);
-        font-size: 13px;
-        line-height: 1.3;
-        white-space: nowrap;
-        opacity: 0;
-        transition: opacity 0.5s;
-        animation: bob 5.5s ease-in-out infinite;
-      }
-      .fl.on {
-        opacity: 1;
-      }
-      .fl b {
-        display: block;
-      }
-      .fl small {
-        color: var(--mut);
-        font-size: 12px;
-      }
-      .fl .d {
-        width: 34px;
-        height: 34px;
-        border-radius: 11px;
-        display: grid;
-        place-items: center;
-        font-weight: 700;
-        background: color-mix(in srgb, var(--brand) 16%, transparent);
-        color: var(--brand);
-      }
-      .fl.l {
-        left: -120px;
-        top: 48%;
-      }
-      .fl.r {
-        right: -110px;
-        top: 22%;
-        animation-delay: -2.6s;
-      }
-      @keyframes bob {
-        50% {
-          translate: 0 -8px;
-        }
-      }
-      @media (min-width: 1240px) {
-        .fl {
-          display: flex;
-        }
-      }
-      .phone {
-        position: relative;
-        width: 292px;
-        height: 590px;
-        border-radius: 46px;
-        background: #14141c;
-        padding: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        box-shadow:
-          0 50px 80px -34px rgba(40, 15, 5, 0.7),
-          0 0 0 6px color-mix(in srgb, var(--ink) 6%, transparent),
-          inset 0 0 0 2px #232331;
-        transition: transform 0.25s ease-out;
-      }
-      .punch {
-        position: absolute;
-        top: 18px;
-        left: 50%;
-        width: 13px;
-        height: 13px;
-        margin-left: -6px;
-        border-radius: 50%;
-        background: #050508;
-        z-index: 5;
-      }
-      .screen {
-        position: relative;
-        height: 100%;
-        border-radius: 37px;
-        overflow: hidden;
-        background: #fbfaf7;
-        color: #241c15;
-        font-size: 13px;
-        line-height: 1.4;
-      }
-      .scene {
-        position: absolute;
-        inset: 0;
-        padding: 46px 16px 70px;
-        opacity: 0;
-        transform: translateY(12px);
-        transition:
-          opacity 0.5s,
-          transform 0.5s;
-        pointer-events: none;
-      }
-      .scene.on {
-        opacity: 1;
-        transform: none;
-      }
-      .ah {
-        font:
-          700 22px Fraunces,
-          serif;
-      }
-      .as {
-        color: #6b6055;
-        font-size: 12px;
-        margin: 2px 0 12px;
-      }
-      .hc {
-        background: linear-gradient(135deg, #1e2438, #2e3860);
-        color: #fff;
-        border-radius: 20px;
-        padding: 16px;
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-      .hc small {
-        color: #c9cfe5;
-        font-size: 12px;
-        display: block;
-      }
-      .hc .big {
-        font:
-          700 23px Fraunces,
-          serif;
-        line-height: 1.1;
-      }
-      .ring {
-        position: relative;
-        width: 70px;
-        height: 70px;
-        flex: none;
-      }
-      .ring svg {
-        width: 70px;
-        height: 70px;
-        transform: rotate(-90deg);
-      }
-      .ring circle {
-        fill: none;
-        stroke-width: 8;
-        stroke-linecap: round;
-      }
-      .ring .bg {
-        stroke: rgba(255, 255, 255, 0.16);
-      }
-      .ring .fg {
-        stroke: #d9a648;
-        stroke-dasharray: 201;
-        stroke-dashoffset: 201;
-        transition: stroke-dashoffset 1.4s 0.3s ease-out;
-      }
-      .on .ring .fg {
-        stroke-dashoffset: 36;
-      }
-      .ring b {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        font-size: 14px;
-      }
-      .lbl {
-        font-weight: 600;
-        font-size: 13px;
-        margin: 16px 0 8px;
-      }
-      .row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        background: #fbf3e4;
-        border: 1px solid #e7dcc7;
-        border-radius: 14px;
-        padding: 10px 12px;
-        margin-bottom: 8px;
-      }
-      .av {
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        color: #fff;
-        font-weight: 700;
-        font-size: 13px;
-        flex: none;
-        background: #a8462f;
-      }
-      .av.a {
-        background: #b8842e;
-      }
-      .row .t {
-        flex: 1;
-        min-width: 0;
-      }
-      .row .t b {
-        display: block;
-        font-size: 13px;
-        color: #241c15;
-      }
-      .row .t span {
-        font-size: 11.5px;
-        color: #6b6055;
-      }
-      .chip {
-        background: #a8462f;
-        color: #fff;
-        border-radius: 999px;
-        padding: 6px 12px;
-        font-size: 12px;
-        font-weight: 600;
-      }
-      .av {
-        position: relative;
-      }
-      .av::after {
-        content: "";
-        position: absolute;
-        right: -2px;
-        top: -2px;
-        width: 11px;
-        height: 11px;
-        border-radius: 50%;
-        border: 2px solid #fbf3e4;
-      }
-      .av.r {
-        background: #a8462f;
-      }
-      .av.r::after {
-        background: #b14031;
-      }
-      .av.a::after {
-        background: #c07a1f;
-      }
-      .msg {
-        background: #dcf8c6;
-        border-radius: 12px 12px 4px 12px;
-        padding: 10px 12px;
-        font-size: 12.5px;
-        margin: 12px 0;
-        color: #1d2a1a;
-      }
-      .send {
-        width: 100%;
-        background: #2fa866;
-        color: #fff;
-        border: 0;
-        border-radius: 12px;
-        padding: 11px;
-        font:
-          600 13px "Work Sans",
-          sans-serif;
-      }
-      .send.b {
-        background: #a8462f;
-      }
-      .st {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 12.5px;
-        margin-top: 10px;
-        color: #2e6b4c;
-        font-weight: 600;
-      }
-      .okc {
-        width: 84px;
-        height: 84px;
-        margin: 36px auto 14px;
-        border-radius: 50%;
-        background: #e7f0e8;
-        display: grid;
-        place-items: center;
-        transform: scale(0.4);
-        transition: transform 0.6s 0.2s cubic-bezier(0.2, 1.6, 0.4, 1);
-      }
-      .on .okc {
-        transform: none;
-      }
-      .okc svg {
-        width: 44px;
-        height: 44px;
-        stroke: #2e6b4c;
-        stroke-width: 3.5;
-        fill: none;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-      .pay {
-        text-align: center;
-      }
-      .pay .amt {
-        font:
-          700 32px Fraunces,
-          serif;
-        color: #2e6b4c;
-        margin: 6px 0;
-      }
-      .badge {
-        display: inline-block;
-        background: #e7f0e8;
-        color: #2e6b4c;
-        font-weight: 600;
-        border-radius: 999px;
-        padding: 5px 12px;
-        font-size: 12px;
-      }
-      .bal {
-        background: linear-gradient(135deg, #1e2438, #2e3860);
-        border-radius: 20px;
-        color: #fff;
-        padding: 18px;
-      }
-      .bal small {
-        color: #c9cfe5;
-        font-size: 12px;
-      }
-      .bal .big {
-        font:
-          700 30px Fraunces,
-          serif;
-      }
-      .wait {
-        display: flex;
-        justify-content: space-between;
-        background: #fbeedc;
-        border-radius: 14px;
-        padding: 12px;
-        margin: 10px 0 14px;
-        font-size: 12.5px;
-      }
-      .wait b {
-        color: #c07a1f;
-      }
-      .tabs {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 62px;
-        background: #fffcf5;
-        border-top: 1px solid #e7dcc7;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        font-size: 9.5px;
-        color: #948a78;
-      }
-      .tabs span {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 3px;
-      }
-      .tabs span::before {
-        content: "";
-        width: 18px;
-        height: 18px;
-        border-radius: 6px;
-        background: #e7dcc7;
-      }
-      .tabs .cur {
-        color: #a8462f;
-        font-weight: 600;
-      }
-      .tabs .cur::before {
-        background: #a8462f;
-      }
-      .dots {
-        display: flex;
-        gap: 10px;
-      }
-      .dots button {
-        width: 34px;
-        height: 6px;
-        border-radius: 6px;
-        border: 0;
-        background: color-mix(in srgb, var(--ink) 18%, transparent);
-        cursor: pointer;
-        padding: 0;
-        overflow: hidden;
-        position: relative;
-      }
-      .dots button[aria-current="true"]::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: var(--brand);
-        transform-origin: left;
-        animation: fill 4.8s linear both;
-      }
-      @keyframes fill {
-        from {
-          transform: scaleX(0);
-        }
-      }
-      .cap {
-        color: var(--mut);
-        font-size: 14px;
-        text-align: center;
-        min-height: 22px;
-      }
-      /* bandeau */
-      .mq {
-        position: relative;
-        overflow: hidden;
-        padding: 18px 0;
-        display: grid;
-        gap: 14px;
-        background: linear-gradient(
-          100deg,
-          var(--b1),
-          var(--b2) 50%,
-          var(--b1)
-        );
-        border-block: 1px solid rgba(0, 0, 0, 0.25);
-        box-shadow: 0 20px 34px -26px rgba(90, 30, 10, 0.8);
-        -webkit-mask-image: none;
-      }
-      .mq::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: repeating-linear-gradient(
-          115deg,
-          transparent 0 22px,
-          rgba(255, 255, 255, 0.03) 22px 23px
-        );
-        pointer-events: none;
-      }
-      .mq::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        background: linear-gradient(
-          90deg,
-          var(--b1),
-          transparent 9%,
-          transparent 91%,
-          var(--b1)
-        );
-      }
-      .tr {
-        display: flex;
-        gap: 14px;
-        width: max-content;
-        animation: mq 46s linear infinite;
-      }
-      .tr.rv {
-        animation-direction: reverse;
-        animation-duration: 58s;
-      }
-      .mq:hover .tr {
-        animation-play-state: paused;
-      }
-      @keyframes mq {
-        to {
-          transform: translateX(calc(-50% - 7px));
-        }
-      }
-      .it {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        padding: 10px 20px 10px 12px;
-        border-radius: 999px;
-        border: 1px solid rgba(246, 238, 222, 0.2);
-        background: rgba(246, 238, 222, 0.07);
-        color: #f6eede;
-        font-weight: 600;
-        font-size: 15px;
-        white-space: nowrap;
-      }
-      .it i {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(135deg, #f2c46b, #d2684a);
-        color: #2a130b;
-        font:
-          700 13px "Work Sans",
-          sans-serif;
-        font-style: normal;
-      }
-      .it em {
-        font-style: normal;
-        color: #f2c46b;
-        font-weight: 600;
-      }
-      /* cartes */
-      .head {
-        margin-bottom: 48px;
-      }
-      .bento {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-      }
-      .card {
-        position: relative;
-        overflow: hidden;
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 22px;
-        padding: 28px;
-        box-shadow: var(--sh);
-        transition:
-          border-color 0.3s,
-          translate 0.3s;
-      }
-      .card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(
-          280px circle at var(--mx, 50%) var(--my, 0%),
-          var(--glow),
-          transparent 62%
-        );
-        opacity: 0;
-        transition: opacity 0.35s;
-        pointer-events: none;
-      }
-      .card:hover {
-        border-color: color-mix(in srgb, var(--brand) 50%, transparent);
-        translate: 0 -5px;
-      }
-      .card:hover::before {
-        opacity: 1;
-      }
-      .card p {
-        color: var(--mut);
-        font-size: 16px;
-      }
-      .ico {
-        width: 46px;
-        height: 46px;
-        border-radius: 14px;
-        display: grid;
-        place-items: center;
-        background: color-mix(in srgb, var(--brand) 14%, transparent);
-        margin-bottom: 18px;
-      }
-      .ico svg {
-        width: 24px;
-        height: 24px;
-        stroke: var(--brand);
-        fill: none;
-        stroke-width: 1.8;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-      }
-      .band {
-        background: linear-gradient(
-          180deg,
-          color-mix(in srgb, var(--brand) 6%, transparent),
-          transparent
-        );
-        border-block: 1px solid var(--line);
-      }
-      .steps {
-        list-style: none;
-        padding: 0;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 18px;
-        counter-reset: s;
-      }
-      .steps li {
-        position: relative;
-        padding-top: 56px;
-      }
-      .steps li::before {
-        counter-increment: s;
-        content: counter(s);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 34px;
-        height: 34px;
-        border-radius: 50%;
-        background: var(--brand2);
-        color: #fff;
-        display: grid;
-        place-items: center;
-        font-weight: 700;
-      }
-      .steps li::after {
-        content: "";
-        position: absolute;
-        top: 16px;
-        left: 48px;
-        right: 12px;
-        height: 2px;
-        background: linear-gradient(90deg, var(--gold), var(--brand));
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 1.1s 0.3s;
-      }
-      .steps li.in::after {
-        transform: none;
-      }
-      .steps p {
-        color: var(--mut);
-        font-size: 16px;
-      }
-      .wa {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 48px;
-        align-items: center;
-      }
-      .wa ul {
-        list-style: none;
-        padding: 0;
-        margin-top: 18px;
-      }
-      .wa li {
-        padding: 10px 0;
-        border-bottom: 1px solid var(--line);
-        color: var(--mut);
-      }
-      .wa li b {
-        color: var(--ink);
-      }
-      .note {
-        color: var(--mut);
-        font-size: 15px;
-        margin-top: 20px;
-      }
-      .chat {
-        background: #0e1514;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 24px;
-        padding: 22px;
-        color: #f6eede;
-        box-shadow: 0 30px 50px -30px rgba(30, 15, 5, 0.7);
-      }
-      .who {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding-bottom: 16px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        margin-bottom: 18px;
-      }
-      .who svg {
-        width: 46px;
-        height: 43px;
-        background: #f6eede;
-        border-radius: 50%;
-        padding: 7px;
-      }
-      .who span {
-        display: block;
-        color: #b9aea0;
-        font-size: 13px;
-      }
-      .bub {
-        background: #1f2c2b;
-        border-radius: 4px 16px 16px 16px;
-        padding: 12px 14px;
-        font-size: 15px;
-        line-height: 1.5;
-        margin-bottom: 10px;
-        max-width: 92%;
-      }
-      .bub .bt {
-        display: block;
-        text-align: center;
-        border-top: 1px solid rgba(255, 255, 255, 0.12);
-        margin-top: 10px;
-        padding-top: 9px;
-        color: #6cc0f0;
-        font-weight: 600;
-      }
-      .prices {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-      }
-      .price {
-        display: flex;
-        flex-direction: column;
-      }
-      .price .n {
-        color: var(--mut);
-        font-size: 15px;
-      }
-      .price .p {
-        font:
-          700 44px Fraunces,
-          serif;
-        margin: 6px 0 2px;
-      }
-      .price .p small {
-        font:
-          400 15px "Work Sans",
-          sans-serif;
-        color: var(--mut);
-      }
-      .price ul {
-        list-style: none;
-        padding: 0;
-        margin: 20px 0 0;
-        color: var(--mut);
-        font-size: 16px;
-      }
-      .price li {
-        padding: 8px 0 8px 28px;
-        position: relative;
-        border-top: 1px solid var(--line);
-      }
-      .price li::before {
-        content: "";
-        position: absolute;
-        left: 2px;
-        top: 15px;
-        width: 12px;
-        height: 7px;
-        border-left: 2px solid var(--brand);
-        border-bottom: 2px solid var(--brand);
-        transform: rotate(-45deg);
-      }
-      .price.pro {
-        border-color: var(--gold);
-        background: linear-gradient(
-          180deg,
-          color-mix(in srgb, var(--gold) 18%, var(--card)),
-          var(--card) 70%
-        );
-      }
-      .tag {
-        position: absolute;
-        top: 18px;
-        right: 18px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #fff;
-        background: var(--brand2);
-        padding: 4px 10px;
-        border-radius: 99px;
-      }
-      .faq {
-        max-width: 820px;
-        margin: 0 auto;
-      }
-      #faq .head {
-        text-align: center;
-      }
-      details {
-        border-bottom: 1px solid var(--line);
-        padding: 20px 0;
-      }
-      summary {
-        cursor: pointer;
-        font:
-          600 21px Fraunces,
-          serif;
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-      }
-      summary::-webkit-details-marker {
-        display: none;
-      }
-      summary::after {
-        content: "+";
-        color: var(--brand);
-        font-size: 26px;
-        line-height: 1;
-      }
-      details[open] summary::after {
-        content: "–";
-      }
-      details p {
-        color: var(--mut);
-        margin-top: 12px;
-      }
-      .contact {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 32px;
-        align-items: start;
-      }
-      .id p {
-        color: var(--mut);
-        font-size: 16px;
-        margin-bottom: 8px;
-      }
-      .id b {
-        color: var(--ink);
-      }
-      footer {
-        border-top: 1px solid var(--line);
-        padding: 56px 0 40px;
-        font-size: 15px;
-        color: var(--mut);
-        background: var(--bg2);
-      }
-      footer .cols {
-        display: flex;
-        gap: 40px;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
-      footer ul {
-        list-style: none;
-        padding: 0;
-      }
-      footer li {
-        margin: 6px 0;
-      }
-      footer p {
-        margin-bottom: 6px;
-      }
-      .js [data-r] {
-        opacity: 0;
-        transform: translateY(34px);
-        transition:
-          opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
-          transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
-        transition-delay: var(--rd, 0s);
-      }
-      .js [data-r].in {
-        opacity: 1;
-        transform: none;
-      }
-      @media (max-width: 900px) {
-        .links {
-          display: none;
-        }
-        .grid,
-        .wa,
-        .contact {
-          grid-template-columns: 1fr;
-        }
-        .bento,
-        .prices {
-          grid-template-columns: 1fr;
-        }
-        .steps {
-          grid-template-columns: 1fr 1fr;
-          row-gap: 36px;
-        }
-        .hero {
-          padding-top: 120px;
-        }
-        section {
-          padding: 72px 0;
-        }
-      }
-      @media (max-width: 520px) {
-        .nav .wrap {
-          padding: 0 14px;
-          gap: 8px;
-        }
-        .bb {
-          gap: 8px;
-        }
-        .sc .by,
-        .sc svg {
-          display: none;
-        }
-        .sc {
-          padding: 8px 11px;
-          font-size: 13px;
-        }
-        .btn.sm {
-          padding: 9px 12px;
-          font-size: 13px;
-        }
-        .logo {
-          width: 60px;
-          height: 56px;
-        }
-        .steps {
-          grid-template-columns: 1fr;
-        }
-        .phone {
-          transform: scale(0.94);
-        }
-        .it {
-          font-size: 13px;
-        }
-      }
-      @media (max-width: 400px) {
-        .nav .btn.sm {
-          display: none;
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          animation: none !important;
-          transition: none !important;
-          scroll-behavior: auto !important;
-        }
-        .on .ring .fg {
-          stroke-dashoffset: 36;
-        }
-        .on .okc {
-          transform: none;
-        }
-      }
-    </style>
-  </head>
-  <body id="top">
-    <div class="prog" id="prog"></div>
-    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
-      <defs>
-        <symbol id="h" viewBox="16 28 448 418">
-          <rect
-            x="350"
-            y="96"
-            width="36"
-            height="74"
-            rx="4"
-            fill="var(--roof)"
-          />
-          <polygon
-            points="240,40 452,226 28,226"
-            fill="var(--roof)"
-            stroke="var(--roof)"
-            stroke-width="14"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M52 246H428V430a10 10 0 0 1-10 10H62a10 10 0 0 1-10-10Z"
-            fill="var(--wall)"
-          />
-          <path
-            d="M104 440V292a30 30 0 0 1 30-30H346a30 30 0 0 1 30 30V440Z"
-            fill="#FFFCF5"
-          />
-          <path
-            d="M104 440V292a30 30 0 0 1 30-30H346a30 30 0 0 1 30 30V440"
-            fill="none"
-            stroke="var(--roof)"
-            stroke-width="8"
-            stroke-linejoin="round"
-          />
-          <circle cx="350" cy="418" r="7" fill="var(--wall)" />
-        </symbol>
-        <symbol id="dl" viewBox="16 28 448 418">
-           <use href="#h" x="16" y="28" />         
-           <path fill="#8A3722" d="M118.62 377.65Q…" />
-        </symbol>
-    </svg>
-    <header class="nav">
-      <div class="wrap">
-        <div class="bb">
-         <a href="/doma" aria-label="Doma">
-            <svg class="logo" viewBox="16 28 448 418" role="img" aria-label="Doma">
-             <use href="#dl" x="16" y="28" />     
-             </svg>
-         </a>
-           <a
-            class="sc"
-            href="/"
-            aria-label="Retourner sur le site de Souverain Code"
-            ><span class="by">par&nbsp;</span>Souverain Code<svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M7 17L17 7M9 7h8v8" /></svg
-          ></a>
-        </div>
-        <nav class="links" aria-label="Navigation">
-          <a href="/doma#fonctions">Fonctions</a
-          ><a href="/doma#etapes">Comment ça marche</a
-          ><a href="/doma#whatsapp">WhatsApp</a><a href="/doma#tarifs">Tarifs</a
-          ><a href="/doma#faq">Questions</a>
-        </nav>
-        <div class="act">
-          <button
-            class="theme"
-            id="theme"
-            type="button"
-            aria-label="Changer de thème"
-          >
-            <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="12" cy="12" r="4" />
-              <path
-                d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"
-              /></svg
-            ><svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z" />
-            </svg></button
-          ><a class="btn sm" href="#contact">Nous contacter</a>
-        </div>
-      </div>
-    </header>
-    <main>
-      <section class="hero">
-        <div class="wrap">
-          <div class="grid">
-            <div>
-              <span class="pill" data-r
-                ><i></i>Application mobile · lancement prochain sur
-                Android</span
-              >
-              <h1 data-r style="--rd: 0.08s">
-                La gestion locative <em>sans tracasserie.</em>
-              </h1>
-              <p class="sub" data-r style="--rd: 0.16s">
-                Doma aide les propriétaires et les agences d’Afrique de l’Ouest
-                à suivre les loyers, relancer sur WhatsApp et encaisser par
-                Mobile Money, sans cahier ni fichier Excel.
-              </p>
-              <div class="cta" data-r style="--rd: 0.24s">
-                <a class="btn" href="#contact">Nous contacter</a
-                ><a class="btn ghost" href="#tarifs">Voir les tarifs</a>
-              </div>
-              <div class="proof" data-r style="--rd: 0.32s">
-                <span
-                  ><svg viewBox="0 0 24 24">
-                    <path d="M5 12.5l4.5 4.5L19 7" /></svg
-                  >30 jours d’essai gratuit</span
-                ><span
-                  ><svg viewBox="0 0 24 24">
-                    <path d="M5 12.5l4.5 4.5L19 7" /></svg
-                  >Sans carte bancaire</span
-                ><span
-                  ><svg viewBox="0 0 24 24">
-                    <path d="M5 12.5l4.5 4.5L19 7" /></svg
-                  >Mobile Money et WhatsApp</span
-                >
-              </div>
-            </div>
-            <div
-              class="stage"
-              data-r
-              style="--rd: 0.2s"
-              aria-label="Aperçu animé de l’application Doma"
-            >
-              <div class="pw">
-                <div class="fl l" data-s="0">
-                  <span class="d">🏠</span>
-                  <div>
-                    <b>Nouveau locataire</b><small>Accueil envoyé</small>
-                  </div>
-                </div>
-                <div class="fl r" data-s="1">
-                  <span class="d">✓✓</span>
-                  <div>
-                    <b>Relance livrée</b><small>Lue par Mme Dossou</small>
-                  </div>
-                </div>
-                <div class="fl l" data-s="2">
-                  <span class="d">+</span>
-                  <div><b>+ 45 000 FCFA</b><small>Reçu envoyé</small></div>
-                </div>
-                <div class="fl r" data-s="3">
-                  <span class="d">₣</span>
-                  <div>
-                    <b>Retrait en un geste</b><small>Vers Mobile Money</small>
-                  </div>
-                </div>
-                <div class="phone" id="ph">
-                  <span class="punch"></span>
-                  <div class="screen">
-                    <div class="scene on">
-                      <h3 class="ah">Aujourd’hui</h3>
-                      <p class="as">Bonjour M. Adjovi</p>
-                      <div class="hc">
-                        <div class="ring">
-                          <svg viewBox="0 0 74 74">
-                            <circle class="bg" cx="37" cy="37" r="32" />
-                            <circle class="fg" cx="37" cy="37" r="32" /></svg
-                          ><b>82 %</b>
-                        </div>
-                        <div>
-                          <small>Encaissé ce mois</small>
-                          <div class="big">
-                            <span id="cnt">1 245 000</span> F
-                          </div>
-                          <small>sur 1 520 000 attendus</small>
-                        </div>
-                      </div>
-                      <div class="lbl">À faire maintenant</div>
-                      <div class="row">
-                        <span class="av r">MD</span>
-                        <div class="t">
-                          <b>Mme Dossou</b><span>Retard 3 j · 45 000 F</span>
-                        </div>
-                        <span class="chip">Relancer</span>
-                      </div>
-                      <div class="row">
-                        <span class="av a">KT</span>
-                        <div class="t">
-                          <b>M. Tossou</b><span>Reste 15 000 F</span>
-                        </div>
-                        <span class="chip">Relancer</span>
-                      </div>
-                      <div class="row">
-                        <span class="av a">AG</span>
-                        <div class="t">
-                          <b>Mme Gnanvi</b><span>Dû bientôt · 25 000 F</span>
-                        </div>
-                        <span class="chip">Rappeler</span>
-                      </div>
-                    </div>
-                    <div class="scene">
-                      <h3 class="ah">Relancer</h3>
-                      <p class="as">Mme Dossou · Résidence Les Palmiers</p>
-                      <b style="font-size: 13px">Message envoyé par WhatsApp</b>
-                      <div class="msg">
-                        Rappel de loyer : M. Adjovi vous rappelle que votre
-                        loyer de 45 000 FCFA n’a pas encore été réglé. Merci de
-                        régulariser dès que possible.
-                      </div>
-                      <button class="send" tabindex="-1">
-                        Envoyer la relance
-                      </button>
-                      <div class="st">✓✓ Livré · Lu</div>
-                    </div>
-                    <div class="scene pay">
-                      <div class="okc">
-                        <svg viewBox="0 0 24 24">
-                          <path d="M5 12.5l4.5 4.5L19 7" />
-                        </svg>
-                      </div>
-                      <h3 class="ah">Paiement reçu</h3>
-                      <div class="amt">45 000 FCFA</div>
-                      <p class="as" style="margin: 0 auto 10px">
-                        Mme Dossou a payé par Mobile Money avec son lien Doma
-                      </p>
-                      <span class="badge">✓ À jour</span>
-                      <div
-                        class="row"
-                        style="margin-top: 22px; text-align: left"
-                      >
-                        <div class="t">
-                          <b>Reçu envoyé sur WhatsApp</b
-                          ><span>Vous êtes prévenu, sans rien saisir</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="scene">
-                      <h3 class="ah">Solde</h3>
-                      <p class="as">Loyers payés par lien et QR</p>
-                      <div class="bal">
-                        <small>Disponible</small>
-                        <div class="big">180 000 F</div>
-                      </div>
-                      <div class="wait">
-                        <span>En cours de traitement</span><b>45 000 F</b>
-                      </div>
-                      <button class="send b" tabindex="-1">
-                        Retirer vers Mobile Money
-                      </button>
-                      <p
-                        class="as"
-                        style="margin-top: 12px; text-align: center"
-                      >
-                        Confirmation par code WhatsApp
-                      </p>
-                    </div>
-                    <div class="tabs">
-                      <span class="cur">Aujourd’hui</span><span>Résidences</span
-                      ><span>Locataires</span><span>Plus</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="dots"
-                id="dots"
-                role="group"
-                aria-label="Choisir l’écran"
-              >
-                <button aria-label="Aujourd’hui" aria-current="true"></button
-                ><button aria-label="Relance" aria-current="false"></button
-                ><button
-                  aria-label="Paiement reçu"
-                  aria-current="false"
-                ></button
-                ><button aria-label="Solde" aria-current="false"></button>
-              </div>
-              <p class="cap" id="cap">Voyez ce qui demande votre attention.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Doma — la gestion locative sans tracasserie | Souverain Code</title><meta name="description" content="Doma aide les propriétaires et agences d’Afrique de l’Ouest à suivre les loyers, relancer sur WhatsApp et encaisser par Mobile Money."><meta name="theme-color" content="#100B09">
+<meta property="og:title" content="Doma — la gestion locative sans tracasserie | Souverain Code"><meta property="og:description" content="Doma aide les propriétaires et agences d’Afrique de l’Ouest à suivre les loyers, relancer sur WhatsApp et encaisser par Mobile Money."><meta property="og:type" content="website"><meta property="og:image" content="/doma/logo.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='16 28 448 418'%3E%3Cstyle%3E.r{fill:%238A3722;stroke:%238A3722}.w{fill:%23A8462F}.k{stroke:%238A3722}@media (prefers-color-scheme:dark){.r{fill:%23F6EEDE;stroke:%23F6EEDE}.w{fill:%23D9A08C}.k{stroke:%23F6EEDE}}%3C/style%3E%3Crect class='r' x='350' y='96' width='36' height='74' rx='4' stroke='none'/%3E%3Cpolygon class='r' points='240,40 452,226 28,226' stroke-width='14' stroke-linejoin='round'/%3E%3Cpath class='w' d='M52 246H428V430a10 10 0 0 1-10 10H62a10 10 0 0 1-10-10Z'/%3E%3Cpath d='M104 440V292a30 30 0 0 1 30-30H346a30 30 0 0 1 30 30V440Z' fill='%23FFFCF5'/%3E%3Cpath class='k' d='M104 440V292a30 30 0 0 1 30-30H346a30 30 0 0 1 30 30V440' fill='none' stroke-width='8' stroke-linejoin='round'/%3E%3Cpath d='M118.62 377.65Q118.62 375.76 120.59 375.04L122.61 374.5Q123.66 374.12 124.19 373.51Q124.71 372.9 124.71 371.94V329.26Q124.71 328.3 124.19 327.69Q123.66 327.08 122.61 326.7L120.59 326.16Q118.62 325.44 118.62 323.55Q118.62 322.46 119.38 321.83Q120.13 321.2 121.64 321.2H145.84Q153.61 321.2 159.95 323.49Q166.29 325.78 170.87 329.98Q175.45 334.18 177.9 339.93Q180.36 345.69 180.36 352.62Q180.36 360.55 176.64 366.73Q172.93 372.9 166.08 376.45Q159.23 380 149.78 380H121.64Q120.13 380 119.38 379.35Q118.62 378.7 118.62 377.65ZM147.94 374.96Q152.56 374.96 156.08 372.57Q159.61 370.17 161.63 365.17Q163.64 360.18 163.64 352.36Q163.64 346.27 162.3 341.42Q160.96 336.57 158.39 333.19Q155.83 329.81 152.2 328.02Q148.57 326.24 144.03 326.24H140.92V370.76Q140.92 372.94 142.12 373.95Q143.32 374.96 145.58 374.96ZM208.96 338.8Q215.77 338.8 220.89 341.49Q226.01 344.17 228.85 348.96Q231.68 353.75 231.68 360.09Q231.68 366.01 228.72 370.78Q225.76 375.55 220.53 378.32Q215.3 381.09 208.42 381.09Q201.65 381.09 196.53 378.38Q191.41 375.67 188.55 370.89Q185.69 366.1 185.69 359.84Q185.69 353.79 188.65 349.05Q191.62 344.3 196.84 341.55Q202.07 338.8 208.96 338.8ZM211.99 375.93Q214.21 375.51 215.51 373.49Q216.82 371.47 217 367.78Q217.19 364.08 216.1 358.62Q215.05 353.29 213.46 349.89Q211.86 346.48 209.8 344.99Q207.74 343.5 205.43 343.96Q203.21 344.38 201.91 346.4Q200.6 348.42 200.44 352.11Q200.27 355.81 201.32 361.27Q202.33 366.56 203.94 369.98Q205.56 373.41 207.6 374.88Q209.63 376.35 211.99 375.93ZM256.17 342.07V372.31Q256.17 373.78 256.48 374.41Q256.8 375.04 257.51 375.34L258.69 375.8Q260.03 376.47 260.03 377.77Q260.03 380 257.26 380H239.83Q238.45 380 237.79 379.43Q237.14 378.87 237.14 377.9Q237.14 377.19 237.54 376.64Q237.94 376.09 238.78 375.76L240.08 375.34Q240.8 375.09 241.09 374.44Q241.39 373.78 241.39 372.31V350.26Q241.39 349.09 241.05 348.56Q240.71 348.04 240 347.87L238.45 347.66Q237.61 347.41 237.25 346.97Q236.89 346.53 236.89 345.81Q236.89 344.97 237.38 344.47Q237.86 343.96 239.12 343.46L247.81 340.23Q249.62 339.51 250.77 339.2Q251.93 338.88 252.94 338.88Q254.53 338.88 255.35 339.78Q256.17 340.69 256.17 342.07ZM254.78 351.86 252.6 349.55 254.03 348.25Q259.66 343 263.73 340.9Q267.8 338.8 271.37 338.8Q276.88 338.8 280.15 342.37Q283.43 345.94 283.43 351.82V372.27Q283.43 373.78 283.74 374.41Q284.06 375.04 284.77 375.34L285.91 375.8Q287.25 376.47 287.25 377.77Q287.25 380 284.52 380H267.51Q264.78 380 264.78 377.77Q264.78 376.47 266.08 375.8L267.3 375.34Q268.06 375.04 268.35 374.39Q268.64 373.74 268.64 372.23V353.92Q268.64 350.77 267.22 349.17Q265.79 347.58 263.14 347.58Q261.55 347.58 259.8 348.29Q258.06 349 256.38 350.47ZM282.04 351.86 279.82 349.55 281.29 348.25Q286.75 343.17 290.65 340.98Q294.56 338.8 297.96 338.8Q303.25 338.8 306.23 342.39Q309.22 345.98 309.76 351.82L311.9 372.27Q312.07 373.78 312.32 374.44Q312.58 375.09 313.25 375.34L314.47 375.76Q315.35 376.14 315.73 376.66Q316.1 377.19 316.1 377.9Q316.1 378.87 315.47 379.43Q314.84 380 313.42 380H295.82Q293.05 380 293.05 377.77Q293.05 376.47 294.39 375.8L295.61 375.34Q296.32 375.04 296.72 374.39Q297.12 373.74 296.95 372.23L295.06 353.92Q294.73 350.77 293.49 349.17Q292.25 347.58 289.73 347.58Q288.3 347.58 286.75 348.33Q285.19 349.09 283.6 350.47ZM345.04 374.46V373.57L343.99 373.45V347.32Q343.99 345.06 342.82 343.75Q341.64 342.45 339.54 342.45Q337.73 342.45 336.66 343.25Q335.59 344.05 335.59 345.27V349.42Q335.59 352.45 333.53 354.09Q331.48 355.72 327.74 355.72Q324.55 355.72 322.93 354.32Q321.31 352.91 321.31 350.35Q321.31 347.66 323.66 345.01Q326.02 342.37 330.66 340.6Q335.3 338.84 342.23 338.84Q350.5 338.84 354.55 342.03Q358.61 345.22 358.61 350.73V371.68Q358.61 372.69 359.05 373.24Q359.49 373.78 360.33 373.78Q361.17 373.78 361.61 373.36Q362.05 372.94 362.43 372.52Q362.68 372.27 362.95 372.06Q363.23 371.85 363.61 371.85Q364.24 371.85 364.51 372.29Q364.78 372.73 364.78 373.45Q364.78 375.09 363.63 376.85Q362.47 378.61 360.16 379.85Q357.85 381.09 354.41 381.09Q350.21 381.09 347.62 379.26Q345.04 377.44 345.04 374.46ZM319.67 371.14Q319.67 365.64 324.61 362.36Q329.54 359.08 338.45 359.08Q341.05 359.08 343.07 359.48Q345.08 359.88 346.47 360.6L345.29 363.75Q344.16 363.16 343.03 362.86Q341.89 362.57 340.55 362.57Q337.78 362.57 336.2 364.14Q334.63 365.72 334.63 368.62Q334.63 371.56 336.05 373.09Q337.48 374.62 339.75 374.62Q341.47 374.62 343.07 373.83Q344.66 373.03 345.63 371.73L346.6 374.58Q344.41 377.69 340.57 379.39Q336.73 381.09 332.36 381.09Q326.69 381.09 323.18 378.3Q319.67 375.51 319.67 371.14Z' fill='%238A3722'/%3E%3C/svg%3E"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>(function(){var t='dark';try{var s=localStorage.getItem('doma-theme');if(s==='light'||s==='dark')t=s}catch(e){}document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add('js')})()</script><style>:root{--bg:#F6EEDE;--bg2:#EBDDC0;--card:#FFFCF5;--ink:#241C15;--mut:#5E5348;--line:rgba(110,60,30,.18);--brand:#A8462F;--brand2:#8A3722;--gold:#9A6512;--roof:#8A3722;--wall:#A8462F;--wm:#8A3722;--glow:rgba(192,88,60,.2);--glow2:rgba(217,166,72,.26);--nav:rgba(246,238,222,.84);--sh:0 24px 44px -30px rgba(90,40,15,.55);--gb:#F2C46B;--hv-bg:#8A3722;--hv-ink:#F6EEDE;--sc-ink:#8A3722;--sc-bd:rgba(138,55,34,.45);--sc-bg:rgba(138,55,34,.08);color-scheme:light}@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#100B09;--bg2:#17100D;--card:#1D1411;--ink:#F6EEDE;--mut:#B9AEA0;--line:rgba(246,238,222,.13);--brand:#D2684A;--brand2:#C0583C;--gold:#D9A648;--roof:#F6EEDE;--wall:#D9A08C;--wm:#F6EEDE;--glow:rgba(192,88,60,.3);--glow2:rgba(217,166,72,.1);--nav:rgba(16,11,9,.76);--sh:0 24px 44px -30px #000;--hv-bg:#F6EEDE;--hv-ink:#8A3722;--sc-ink:#F6EEDE;--sc-bd:rgba(246,238,222,.32);--sc-bg:rgba(246,238,222,.07);color-scheme:dark}}:root[data-theme=dark]{--bg:#100B09;--bg2:#17100D;--card:#1D1411;--ink:#F6EEDE;--mut:#B9AEA0;--line:rgba(246,238,222,.13);--brand:#D2684A;--brand2:#C0583C;--gold:#D9A648;--roof:#F6EEDE;--wall:#D9A08C;--wm:#F6EEDE;--glow:rgba(192,88,60,.3);--glow2:rgba(217,166,72,.1);--nav:rgba(16,11,9,.76);--sh:0 24px 44px -30px #000;--hv-bg:#F6EEDE;--hv-ink:#8A3722;--sc-ink:#F6EEDE;--sc-bd:rgba(246,238,222,.32);--sc-bg:rgba(246,238,222,.07);color-scheme:dark}*{box-sizing:border-box;margin:0}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{background:var(--bg);color:var(--ink);font:17px/1.65 "Work Sans",system-ui,sans-serif;overflow-x:clip;transition:background .4s,color .4s}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(55% 45% at 80% 4%,var(--glow),transparent 70%),radial-gradient(40% 40% at 4% 38%,var(--glow2),transparent 70%)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.03em;line-height:1.04}
+h2{font-size:clamp(34px,5vw,64px);font-weight:800;margin-bottom:16px;text-wrap:balance}
+h3{font-size:23px;font-weight:700;margin-bottom:8px;letter-spacing:-.02em;line-height:1.15}
+p{max-width:60ch}a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--gb);outline-offset:3px;border-radius:8px}
+[hidden]{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section{padding:110px 0}
+.sub{color:var(--mut);font-size:19px;max-width:52ch}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:70;background:linear-gradient(90deg,var(--brand),var(--gb));transform-origin:left;transform:scaleX(0)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;padding-top:env(safe-area-inset-top,0px);background:var(--nav);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:78px}
+.bb{display:flex;align-items:center;gap:14px;min-width:0}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo{display:block;width:66px;height:62px;overflow:visible}
+.wm{font:800 28px Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.02em;color:var(--wm)}
+.sc{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;text-decoration:none;font-weight:600;font-size:14px;line-height:1;color:var(--sc-ink);padding:9px 14px;border-radius:999px;border:1px solid var(--sc-bd);background:var(--sc-bg);transition:.25s}
+.sc .by{font-weight:400;opacity:.72}
+.sc svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.sc:hover{background:var(--hv-bg);color:var(--hv-ink);border-color:var(--hv-bg);transform:translateY(-1px)}
+.sc:hover svg{transform:translate(2px,-2px)}
+.links{display:flex;gap:26px;font-size:15px}
+.links a{color:var(--mut);text-decoration:none;transition:color .2s}.links a:hover{color:var(--ink)}
+.act{display:flex;align-items:center;gap:10px}
+.theme{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:var(--ink);background:var(--card);border:1px solid var(--line);transition:transform .3s}
+.theme:hover{transform:rotate(16deg)}
+.theme svg{grid-area:1/1;width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.theme .sun{display:none}:root[data-theme=dark] .theme .sun{display:block}:root[data-theme=dark] .theme .moon{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:15px 28px;border-radius:14px;font:600 16px "Work Sans",sans-serif;text-decoration:none;cursor:pointer;border:0;color:#fff;background:linear-gradient(180deg,#C85F42,#8A3722);box-shadow:0 14px 28px -12px rgba(138,55,34,.9);transition:transform .25s,filter .25s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.btn.sm{padding:10px 18px;font-size:15px}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid color-mix(in srgb,var(--ink) 35%,transparent);box-shadow:none}
+.btn.ghost:hover{background:var(--ink);color:var(--bg)}
+footer{border-top:1px solid var(--line);padding:56px 0 40px;font-size:15px;color:var(--mut);background:var(--bg2)}
+footer .cols{display:flex;gap:40px;flex-wrap:wrap;justify-content:space-between}
+footer ul{list-style:none;padding:0}footer li{margin:7px 0}footer p{margin-bottom:6px}footer b{color:var(--ink)}
+/* pages légales */
+.doc{padding:130px 0 80px}.doc .wrap{max-width:840px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:clamp(24px,5vw,56px);box-shadow:var(--sh)}
+.doc h1{font-size:clamp(36px,6vw,60px);font-weight:900;letter-spacing:-.04em;line-height:1}
+.date{color:var(--mut);margin:10px 0 28px}
+.doc h2{font-size:26px;font-weight:700;margin:38px 0 10px;letter-spacing:-.02em}
+.doc p+p,.doc ul+p,.doc p+ul{margin-top:12px}.doc ul{padding-left:22px;max-width:64ch}.doc li{margin:6px 0}
+.doc p,.doc li{opacity:.9}
+.back{display:inline-flex;gap:8px;margin-bottom:20px;font-weight:600;text-decoration:none}
+@media(max-width:900px){.links{display:none}section{padding:76px 0}}
+@media(max-width:520px){.nav .wrap{padding:0 14px;gap:8px}.bb{gap:8px}.sc .by,.sc svg{display:none}.sc{padding:8px 11px;font-size:13px}.btn.sm{padding:9px 12px;font-size:13px}.logo{width:58px;height:54px}}
+@media(max-width:400px){.nav .btn.sm{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.hero{padding:132px 0 80px;overflow:hidden}
+.hgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center}
+h1{font-size:clamp(50px,13.4vw,86px);font-weight:900;line-height:.95;letter-spacing:-.045em;text-wrap:balance;overflow-wrap:break-word}
+@media(min-width:901px){h1{font-size:clamp(60px,7.4vw,100px)}}
+h1 em{font-style:normal;background:linear-gradient(100deg,var(--brand),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.05em}
+.hero .sub{margin:26px 0 32px}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.proof{display:flex;gap:10px 26px;flex-wrap:wrap;margin-top:34px;color:var(--mut);font-size:15px}
+.proof span{display:flex;align-items:center;gap:8px}.proof svg{width:18px;height:18px;stroke:var(--brand);fill:none;stroke-width:2.4}
+.note-app{display:inline-block;margin-bottom:24px;font-size:15px;color:var(--mut);border-bottom:1.5px solid var(--gb);padding-bottom:3px}
+.bwrap{position:relative;perspective:1100px}
+.bwrap::before{content:"";position:absolute;inset:8% -6% -2%;background:radial-gradient(closest-side,var(--glow),transparent 72%);filter:blur(24px)}
+.bld{position:relative;width:min(100%,520px);aspect-ratio:500/530;margin-inline:auto;container-type:inline-size;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .3s ease-out}
+.chim{position:absolute;top:3%;right:19%;width:7.5%;height:26%;background:var(--roof);border-radius:1cqw 1cqw 0 0}
+.roof{position:absolute;top:2%;left:-3%;width:106%;height:30%;background:var(--roof);clip-path:polygon(50% 0,100% 100%,0 100%)}
+.wallb{position:absolute;left:3%;right:3%;top:30.5%;bottom:0;background:linear-gradient(180deg,var(--wall),color-mix(in srgb,var(--wall) 86%,#000));border-radius:0 0 3cqw 3cqw;box-shadow:0 5cqw 8cqw -5cqw rgba(0,0,0,.55)}
+.wins{position:absolute;left:5cqw;right:5cqw;top:5cqw;bottom:41%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:2.6cqw}
+.win{position:relative;border-radius:2.2cqw;background:#2A1712;border:.9cqw solid rgba(58,24,12,.62);padding:1.6cqw 2cqw;display:flex;flex-direction:column;justify-content:space-between;color:#CDB99D;transition:background .8s,color .8s,box-shadow .8s;overflow:hidden;min-width:0}
+.win .ic{align-self:flex-end;width:max(15px,4.8cqw);height:max(15px,4.8cqw);border-radius:50%;display:grid;place-items:center;font-size:max(10px,2.9cqw);font-weight:700;line-height:1;background:rgba(255,255,255,.1)}
+.win b{display:block;font-size:max(11px,2.9cqw);line-height:1.15;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.win span{font-size:max(10.5px,2.5cqw);opacity:.85;white-space:nowrap}
+.win[data-s=late]{background:linear-gradient(160deg,#6B2315,#B03B24);color:#FFE3D6;animation:late 1.6s ease-in-out infinite}.win[data-s=late] .ic{background:#FFE3D6;color:#A33A24}
+.win[data-s=paid]{background:linear-gradient(160deg,#FFE7A8,#F2C46B);color:#3A2308;box-shadow:0 0 5cqw rgba(242,196,107,.6)}.win[data-s=paid] .ic{background:#3A2308;color:#FFE7A8}
+@keyframes late{50%{box-shadow:0 0 4cqw rgba(255,90,60,.55)}}
+.door{position:absolute;left:50%;bottom:0;width:32%;height:34%;transform:translateX(-50%);background:#FFFCF5;border-radius:11cqw 11cqw 0 0;box-shadow:0 0 0 1.1cqw var(--roof);clip-path:inset(-2cqw -2cqw 0 -2cqw);display:grid;place-items:center;padding-top:5%}
+.door svg{width:74%;height:auto;display:block}
+.door::after{content:"";position:absolute;right:11%;bottom:22%;width:1.5cqw;height:1.5cqw;border-radius:50%;background:var(--wall)}
+.bchip{position:absolute;z-index:6;display:flex;gap:2.2cqw;align-items:center;padding:2cqw 3cqw;border-radius:3cqw;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh);font-size:max(11px,2.9cqw);line-height:1.3;opacity:0;transform:translateY(12px) scale(.94);transition:opacity .5s,transform .6s cubic-bezier(.2,1.4,.4,1);white-space:nowrap}
+.bchip.on{opacity:1;transform:none}.bchip b{display:block}.bchip small{color:var(--mut);font-size:92%}
+.bchip i{width:6.4cqw;height:6.4cqw;min-width:20px;min-height:20px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:max(10px,3cqw);background:#2FA866;color:#fff;flex:none}
+.bchip.gold i{background:var(--gb);color:#3A2308}
+.bchip.l{left:-2%;top:37%}.bchip.r{right:-2%;top:17%}
+.tally{width:min(100%,520px);margin:28px auto 0;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.tally small{display:block;color:var(--mut);font-size:14px}
+.tally .big{font:800 clamp(34px,4.4vw,52px)/1 Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.03em}
+.bar{flex:1 1 140px;max-width:220px;height:10px;border-radius:99px;background:color-mix(in srgb,var(--ink) 14%,transparent);overflow:hidden;margin-bottom:8px}
+.bar i{display:block;height:100%;width:82%;border-radius:99px;background:linear-gradient(90deg,var(--brand),var(--gb));transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.manifest{padding:120px 0;background:var(--bg2);border-block:1px solid var(--line)}
+.mtxt{font:700 clamp(30px,5.3vw,74px)/1.08 Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.035em;max-width:17em;text-wrap:balance}
+.js .mtxt .w{opacity:.3;transition:opacity .35s}.js .mtxt .w.on{opacity:1}
+.mfoot{margin-top:36px;color:var(--mut);font-size:19px;max-width:44ch}
+.head{margin-bottom:54px}
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.bx{position:relative;overflow:hidden;border-radius:30px;padding:30px;display:flex;flex-direction:column;min-height:330px;border:1px solid var(--line);background:var(--card);box-shadow:var(--sh)}
+.bx p{color:var(--mut);font-size:16px}.bx .vis{margin-top:auto;padding-top:22px}
+.s4{grid-column:span 4}.s2{grid-column:span 2}.s3{grid-column:span 3}
+.bx.clay{background:linear-gradient(155deg,#C0583C,#8A3722);color:#F6EEDE;border:0}.bx.clay p{color:rgba(246,238,222,.88)}.bx.clay h3,.bx.night h3,.bx.navy h3{color:inherit}
+.bx.navy{background:linear-gradient(155deg,#1E2438,#2E3860);color:#fff;border:0}.bx.navy p{color:#C9CFE5}
+.bx.night{background:#0C1311;color:#F6EEDE;border-color:rgba(255,255,255,.1)}.bx.night p{color:#B9AEA0}
+.bx.gold{background:linear-gradient(155deg,#FFE7A8,#F2C46B);color:#2A1A08;border:0}.bx.gold p{color:rgba(42,26,8,.8)}
+.pillrow{display:flex;flex-direction:column;gap:9px}
+.pr{display:flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:10px 14px}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px;flex:none}
+.pr .t{flex:1;min-width:0;line-height:1.3}.pr .t b{display:block;font-size:15px}.pr .t span{font-size:13px;color:var(--mut)}
+.tag{font-size:12.5px;font-weight:600;border-radius:99px;padding:5px 11px;white-space:nowrap}
+.tag.r{background:#A8462F;color:#fff}.tag.a{background:#F2C46B;color:#3A2308}.tag.g{background:#2E6B4C;color:#fff}
+.bub{background:#1F2C2B;border-radius:4px 16px 16px 16px;padding:12px 14px;font-size:15px;line-height:1.5;max-width:92%;color:#F6EEDE}
+.bub .tk{display:block;text-align:right;font-size:12px;color:#6CC0F0;margin-top:4px}
+.qrbox{display:flex;align-items:center;gap:16px}
+.qr{display:grid;grid-template-columns:repeat(9,1fr);width:112px;aspect-ratio:1;padding:9px;background:#FFFCF5;border-radius:14px;gap:2px;flex:none}
+.qr i{border-radius:1.5px}.qr i.k{background:#2A1A08}
+.qrbox span{font-weight:600;font-size:15px;line-height:1.3}
+.wave{display:flex;align-items:center;gap:3px;height:36px}
+.wave i{flex:1;max-width:5px;border-radius:99px;background:#2FA866;height:20%;animation:wv 1.3s ease-in-out infinite}
+@keyframes wv{50%{height:100%}}
+.vmsg{display:flex;align-items:center;gap:12px;background:#DCF8C6;color:#1d2a1a;border-radius:20px 20px 5px 20px;padding:12px 16px;max-width:470px;margin-left:auto;box-shadow:0 14px 30px -14px rgba(0,0,0,.5)}
+.vmsg .play{width:36px;height:36px;border-radius:50%;background:#2FA866;position:relative;flex:none}
+.vmsg .play::after{content:"";position:absolute;left:14px;top:10px;border-left:12px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent}
+.vmsg .wave{flex:1}.vmsg .dur{font-size:12.5px;color:#4a5b45}.vmsg .tk{color:#34B7F1;font-size:13px;font-weight:700}
+.bal{font:800 clamp(40px,5vw,60px)/1 Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.03em;color:#fff}
+.wait{display:flex;justify-content:space-between;background:rgba(255,255,255,.1);border-radius:14px;padding:11px 14px;margin:14px 0;font-size:15px}.wait b{color:#F2C46B}
+.mini-btn{display:block;width:100%;border:0;cursor:pointer;font:600 16px "Work Sans",sans-serif;background:#F2C46B;color:#2A1A08;border-radius:12px;padding:13px;transition:transform .2s}
+.mini-btn:hover:not(:disabled){transform:translateY(-2px)}
+.done{background:#2FA866!important;color:#fff!important}
+.busy{opacity:.9}.busy::before{content:"";display:inline-block;width:14px;height:14px;margin-right:8px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:rot .7s linear infinite;vertical-align:-2px}
+@keyframes rot{to{transform:rotate(360deg)}}
+.wd-msg{font-size:14px;color:#C9CFE5;margin-top:12px;min-height:1.4em;max-width:none}
+.wd-replay{margin-top:6px;background:none;border:0;color:#F2C46B;font:500 13.5px "Work Sans",sans-serif;text-decoration:underline;cursor:pointer;padding:4px 0}
+.team{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.team .avs{display:flex}.team .avs i{width:44px;height:44px;border-radius:50%;border:3px solid var(--card);margin-left:-10px;display:grid;place-items:center;font:700 14px "Work Sans",sans-serif;font-style:normal;color:#fff}.team .avs i:first-child{margin-left:0}
+.stepsec{padding:110px 0 60px}
+.two{display:grid;grid-template-columns:1fr 360px;gap:70px;align-items:start}
+.step{min-height:74vh;display:flex;flex-direction:column;justify-content:center;opacity:.5;transition:opacity .5s}.step.on{opacity:1}
+.step .num{font:800 clamp(70px,11vw,150px)/.9 Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:2px var(--brand);margin-bottom:14px}.step.on .num{color:var(--brand);-webkit-text-stroke:0}
+.step h3{font-size:clamp(28px,3.4vw,42px);font-weight:800}.step p{color:var(--mut);font-size:19px;margin-top:6px}
+.pcol{position:sticky;top:max(96px,calc(50vh - 320px));display:flex;flex-direction:column;align-items:center}
+.pfit{width:292px;height:600px}.mcap{display:none;text-align:center;max-width:32ch;min-height:104px}
+.mcap b{font:800 15px Fraunces,serif;color:var(--brand)}.mcap h3{font-size:24px;margin:2px 0 4px}.mcap p{color:var(--mut);font-size:16px;margin:0 auto}
+.phone{position:relative;width:292px;height:600px;border-radius:46px;background:#14141c;padding:10px;border:1px solid rgba(255,255,255,.18);box-shadow:0 50px 80px -34px rgba(40,15,5,.75),0 0 0 6px color-mix(in srgb,var(--ink) 6%,transparent),inset 0 0 0 2px #232331}
+.punch{position:absolute;top:18px;left:50%;width:13px;height:13px;margin-left:-6px;border-radius:50%;background:#050508;z-index:5}
+.screen{position:relative;height:100%;border-radius:37px;overflow:hidden;background:#fbfaf7;color:#241c15;font-size:13px;line-height:1.4}
+.status{position:absolute;top:0;left:0;right:0;height:40px;display:flex;justify-content:space-between;align-items:center;padding:6px 24px 0;font-size:12px;font-weight:600;z-index:4}
+.scene{position:absolute;inset:0;padding:46px 16px 70px;opacity:0;pointer-events:none;visibility:hidden;transition:opacity .45s,visibility 0s .45s}
+.scene.on{opacity:1;pointer-events:auto;visibility:visible;transition:opacity .45s}
+.scene>*:not(.okc){opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}.scene.on>*:not(.okc){opacity:1;transform:none}
+.scene.on>*:nth-child(2){transition-delay:.12s}.scene.on>*:nth-child(3){transition-delay:.2s}.scene.on>*:nth-child(4){transition-delay:.3s}.scene.on>*:nth-child(5){transition-delay:.42s}.scene.on>*:nth-child(6){transition-delay:.54s}
+.ah{font:700 22px Fraunces,serif;color:#241c15;margin:0}.as{color:#6b6055;font-size:12px;margin:2px 0 12px;max-width:none}
+.fld{background:#fff;border:1px solid #e7dcc7;border-radius:12px;padding:8px 12px;margin-bottom:8px}.fld small{display:block;color:#948a78;font-size:10.5px}.fld b{font-size:13.5px}
+.send{cursor:pointer;width:100%;background:#a8462f;color:#fff;border:0;border-radius:12px;padding:11px;font:600 13px "Work Sans",sans-serif;margin-top:6px}
+.wtop{background:#1F6F54;color:#fff;margin:-46px -16px 12px;padding:46px 16px 12px;display:flex;align-items:center;gap:10px}
+.wtop i{width:32px;height:32px;border-radius:50%;background:#F6EEDE;display:grid;place-items:center;font-style:normal;font-weight:700;color:#8A3722;font-size:12px}
+.wtop b{display:block;font-size:13.5px;line-height:1.2}.wtop span{font-size:11px;opacity:.8}
+.wmsg{background:#fff;border-radius:4px 14px 14px 14px;padding:10px 12px;font-size:12.5px;box-shadow:0 1px 2px rgba(0,0,0,.12);margin-bottom:8px;color:#241c15}
+.wmsg .qr{width:96px;margin:8px 0 2px;border:1px solid #e7dcc7;padding:6px}
+.wmsg .bt{display:block;text-align:center;border-top:1px solid #eee;margin-top:8px;padding-top:7px;color:#2a8bd0;font-weight:600}
+.okc{width:84px;height:84px;margin:36px auto 14px;border-radius:50%;background:#e7f0e8;display:grid;place-items:center;transform:scale(.4);transition:transform .6s .2s cubic-bezier(.2,1.6,.4,1)}.scene.on .okc{transform:none}
+.okc svg{width:44px;height:44px;stroke:#2e6b4c;stroke-width:3.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pay{text-align:center}.pay .amt{font:700 32px Fraunces,serif;color:#2e6b4c;margin:6px 0}
+.badge{display:inline-block;background:#e7f0e8;color:#2e6b4c;font-weight:600;border-radius:999px;padding:5px 12px;font-size:12px}
+.row{display:flex;align-items:center;gap:10px;background:#fbf3e4;border:1px solid #e7dcc7;border-radius:14px;padding:10px 12px;margin-top:22px;text-align:left}.row b{display:block;font-size:13px}.row span{font-size:11.5px;color:#6b6055}
+.pbal{background:linear-gradient(135deg,#1e2438,#2e3860);border-radius:20px;color:#fff;padding:18px}.pbal small{color:#c9cfe5;font-size:12px}.pbal .big{font:700 30px Fraunces,serif}
+.pwait{display:flex;justify-content:space-between;background:#fbeedc;border-radius:14px;padding:12px;margin:10px 0 14px;font-size:12.5px}.pwait b{color:#c07a1f}
+.screen .wd-msg{color:#6b6055;font-size:12px;text-align:center}.screen .wd-replay{color:#a8462f;display:block;margin:4px auto 0}
+.tabs{position:absolute;left:0;right:0;bottom:0;height:62px;background:#fffcf5;border-top:1px solid #e7dcc7;display:flex;justify-content:space-around;align-items:center;font-size:9.5px;color:#948a78;z-index:3}
+.tabs span{display:flex;flex-direction:column;align-items:center;gap:3px}.tabs span::before{content:"";width:18px;height:18px;border-radius:6px;background:#e7dcc7}.tabs .cur{color:#a8462f;font-weight:600}.tabs .cur::before{background:#a8462f}
+.wa{background:#0C1311;color:#F6EEDE;position:relative;overflow:hidden}
+.wa::before{content:"";position:absolute;width:640px;height:640px;right:-160px;top:-200px;background:radial-gradient(closest-side,rgba(47,168,102,.22),transparent 70%)}
+.wa .cols{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;position:relative}
+.wa h2{color:#F6EEDE}.wa .sub,.wa li,.wa .note{color:#B9AEA0}
+.bignum{display:block;margin:26px 0 8px;font:800 clamp(30px,3.9vw,50px)/1.05 Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.04em;color:#F2C46B}
+.wa ul{list-style:none;padding:0;margin-top:26px}.wa li{padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)}.wa li b{color:#F6EEDE;font-weight:600}
+.wa .note{font-size:15px;margin-top:22px}.wa a{color:#F2C46B}
+.chat{background:#0E1514;border:1px solid rgba(255,255,255,.12);border-radius:28px;padding:24px;box-shadow:0 40px 70px -30px #000}
+.who{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:18px}
+.who svg{width:46px;height:43px;background:#F6EEDE;border-radius:50%;padding:7px;flex:none}.who span{display:block;color:#B9AEA0;font-size:13px}
+.chat .bub{margin-bottom:10px}.js .chat .bub{opacity:0;transform:translateY(12px);transition:opacity .6s,transform .6s}.js .chat.go .bub{opacity:1;transform:none}.js .chat.go .bub+.bub{transition-delay:1.2s}
+.bub .bt{display:block;text-align:center;border-top:1px solid rgba(255,255,255,.12);margin-top:10px;padding-top:9px;color:#6cc0f0;font-weight:600}
+.prices{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;margin-top:10px}
+.price{display:flex;flex-direction:column;border-radius:30px;padding:36px 32px 32px;background:var(--card);border:1px solid var(--line);box-shadow:var(--sh)}
+.price .n{font:700 22px Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1}
+.price .p{font:800 clamp(42px,4.6vw,62px)/1 Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;letter-spacing:-.04em;margin:14px 0 4px}
+.price .p small{font:400 15px "Work Sans",sans-serif;letter-spacing:0;color:var(--mut)}.price>p{font-size:16px;color:var(--mut)}
+.price ul{list-style:none;padding:0;margin:22px 0 0;color:var(--mut);font-size:16px}
+.price li{padding:9px 0 9px 28px;position:relative;border-top:1px solid var(--line)}
+.price li::before{content:"";position:absolute;left:2px;top:17px;width:12px;height:7px;border-left:2px solid var(--brand);border-bottom:2px solid var(--brand);transform:rotate(-45deg)}
+.price.pro{background:linear-gradient(160deg,#C85F42,#8A3722 70%);color:#F6EEDE;border:0;transform:translateY(-16px);box-shadow:0 44px 70px -34px rgba(138,55,34,.85)}
+.price.pro>p,.price.pro ul,.price.pro .p small{color:rgba(246,238,222,.88)}.price.pro li{border-color:rgba(246,238,222,.25)}.price.pro li::before{border-color:#F2C46B}
+.flag{align-self:flex-start;margin-bottom:14px;background:#F2C46B;color:#3A2308;font-weight:600;font-size:13px;border-radius:99px;padding:4px 12px}
+.pnote{color:var(--mut);font-size:15px;margin-top:34px}
+.faqg{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}.faqg .l{position:sticky;top:110px}
+details{border-bottom:1px solid var(--line);padding:22px 0}details:first-child{border-top:1px solid var(--line)}
+summary{cursor:pointer;font:700 22px/1.25 Fraunces,Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;list-style:none;display:flex;justify-content:space-between;gap:20px}
+summary::-webkit-details-marker{display:none}summary::after{content:"+";color:var(--brand);font-size:30px;line-height:.9;transition:transform .25s}details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--mut);margin-top:12px}
+.sig{background:linear-gradient(135deg,#B24E34 0%,#8A3722 62%,#6E2A19);color:#F6EEDE;position:relative;overflow:hidden;padding:130px 0}
+.sig .bgh{position:absolute;right:-60px;bottom:-90px;width:620px;height:580px;opacity:.1;transform:rotate(-6deg);pointer-events:none}
+.sig .cols{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:end}
+.sig h2{font-size:clamp(46px,8.2vw,120px);line-height:.9;letter-spacing:-.05em;font-weight:900;color:#F6EEDE}
+.sig .sub{color:rgba(246,238,222,.9);margin-top:22px}
+.sig .btn{background:#F6EEDE;color:#6E2A19;box-shadow:0 18px 34px -14px rgba(0,0,0,.5)}
+.sig .btn.ghost{background:transparent;color:#F6EEDE;border:1.5px solid rgba(246,238,222,.6);box-shadow:none}.sig .btn.ghost:hover{background:#F6EEDE;color:#6E2A19}
+.idc{background:rgba(16,11,9,.28);border:1px solid rgba(246,238,222,.22);border-radius:26px;padding:28px}
+.idc p{font-size:15.5px;margin-bottom:8px;color:rgba(246,238,222,.88)}.idc b{color:#fff}.idc a{color:#FFE7A8}
+.legal-row{margin-top:18px;font-size:15px;display:flex;gap:18px;flex-wrap:wrap}.legal-row a{color:#FFE7A8}
+.js [data-r]{opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;transition-delay:var(--rd,0s)}.js [data-r].in{opacity:1;transform:none}
+@media(max-width:1000px){.two{grid-template-columns:1fr 300px;gap:32px}.wa .cols,.sig .cols,.faqg{grid-template-columns:1fr}.faqg .l{position:static}}
+@media(max-width:900px){
+.hero{padding-top:104px}.hgrid{grid-template-columns:1fr}.hero .sub{font-size:18px;margin:18px 0 24px}.note-app{margin-bottom:16px}
+.cta{flex-wrap:nowrap}.cta .btn{flex:1 1 0;padding:14px 10px;font-size:15px;text-align:center}.proof{margin-top:20px;gap:6px 18px;font-size:14px}
+.manifest{padding:80px 0}.bento{grid-template-columns:1fr}.s4,.s2,.s3{grid-column:auto}.bx{min-height:0}
+.prices{grid-template-columns:1fr}.price.pro{transform:none}.sig{padding:84px 0}
+.stepsec{padding-top:76px}}
+@media(max-width:520px){.bignum{font-size:clamp(28px,8vw,40px)}}
+@media(prefers-reduced-motion:reduce){.js .chat .bub,.js .mtxt .w{opacity:1;transform:none}.scene.on>*{opacity:1!important;transform:none!important}}
+@media(max-width:700px){
+.two{display:flex;flex-direction:column}
+.pcol{order:-1;top:calc(78px + env(safe-area-inset-top,0px));height:calc(100vh - 96px);height:calc(100svh - 96px);justify-content:center;gap:12px;background:none}
+.pfit{width:calc(292px*var(--s,1));height:calc(600px*var(--s,1))}
+.phone{transform:scale(var(--s,1));transform-origin:top left}
+.step{min-height:70vh;visibility:hidden}.mcap{display:block}}
+</style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><g id="nmg"><path d="M118.62 377.65Q118.62 375.76 120.59 375.04L122.61 374.5Q123.66 374.12 124.19 373.51Q124.71 372.9 124.71 371.94V329.26Q124.71 328.3 124.19 327.69Q123.66 327.08 122.61 326.7L120.59 326.16Q118.62 325.44 118.62 323.55Q118.62 322.46 119.38 321.83Q120.13 321.2 121.64 321.2H145.84Q153.61 321.2 159.95 323.49Q166.29 325.78 170.87 329.98Q175.45 334.18 177.9 339.93Q180.36 345.69 180.36 352.62Q180.36 360.55 176.64 366.73Q172.93 372.9 166.08 376.45Q159.23 380 149.78 380H121.64Q120.13 380 119.38 379.35Q118.62 378.7 118.62 377.65ZM147.94 374.96Q152.56 374.96 156.08 372.57Q159.61 370.17 161.63 365.17Q163.64 360.18 163.64 352.36Q163.64 346.27 162.3 341.42Q160.96 336.57 158.39 333.19Q155.83 329.81 152.2 328.02Q148.57 326.24 144.03 326.24H140.92V370.76Q140.92 372.94 142.12 373.95Q143.32 374.96 145.58 374.96ZM208.96 338.8Q215.77 338.8 220.89 341.49Q226.01 344.17 228.85 348.96Q231.68 353.75 231.68 360.09Q231.68 366.01 228.72 370.78Q225.76 375.55 220.53 378.32Q215.3 381.09 208.42 381.09Q201.65 381.09 196.53 378.38Q191.41 375.67 188.55 370.89Q185.69 366.1 185.69 359.84Q185.69 353.79 188.65 349.05Q191.62 344.3 196.84 341.55Q202.07 338.8 208.96 338.8ZM211.99 375.93Q214.21 375.51 215.51 373.49Q216.82 371.47 217 367.78Q217.19 364.08 216.1 358.62Q215.05 353.29 213.46 349.89Q211.86 346.48 209.8 344.99Q207.74 343.5 205.43 343.96Q203.21 344.38 201.91 346.4Q200.6 348.42 200.44 352.11Q200.27 355.81 201.32 361.27Q202.33 366.56 203.94 369.98Q205.56 373.41 207.6 374.88Q209.63 376.35 211.99 375.93ZM256.17 342.07V372.31Q256.17 373.78 256.48 374.41Q256.8 375.04 257.51 375.34L258.69 375.8Q260.03 376.47 260.03 377.77Q260.03 380 257.26 380H239.83Q238.45 380 237.79 379.43Q237.14 378.87 237.14 377.9Q237.14 377.19 237.54 376.64Q237.94 376.09 238.78 375.76L240.08 375.34Q240.8 375.09 241.09 374.44Q241.39 373.78 241.39 372.31V350.26Q241.39 349.09 241.05 348.56Q240.71 348.04 240 347.87L238.45 347.66Q237.61 347.41 237.25 346.97Q236.89 346.53 236.89 345.81Q236.89 344.97 237.38 344.47Q237.86 343.96 239.12 343.46L247.81 340.23Q249.62 339.51 250.77 339.2Q251.93 338.88 252.94 338.88Q254.53 338.88 255.35 339.78Q256.17 340.69 256.17 342.07ZM254.78 351.86 252.6 349.55 254.03 348.25Q259.66 343 263.73 340.9Q267.8 338.8 271.37 338.8Q276.88 338.8 280.15 342.37Q283.43 345.94 283.43 351.82V372.27Q283.43 373.78 283.74 374.41Q284.06 375.04 284.77 375.34L285.91 375.8Q287.25 376.47 287.25 377.77Q287.25 380 284.52 380H267.51Q264.78 380 264.78 377.77Q264.78 376.47 266.08 375.8L267.3 375.34Q268.06 375.04 268.35 374.39Q268.64 373.74 268.64 372.23V353.92Q268.64 350.77 267.22 349.17Q265.79 347.58 263.14 347.58Q261.55 347.58 259.8 348.29Q258.06 349 256.38 350.47ZM282.04 351.86 279.82 349.55 281.29 348.25Q286.75 343.17 290.65 340.98Q294.56 338.8 297.96 338.8Q303.25 338.8 306.23 342.39Q309.22 345.98 309.76 351.82L311.9 372.27Q312.07 373.78 312.32 374.44Q312.58 375.09 313.25 375.34L314.47 375.76Q315.35 376.14 315.73 376.66Q316.1 377.19 316.1 377.9Q316.1 378.87 315.47 379.43Q314.84 380 313.42 380H295.82Q293.05 380 293.05 377.77Q293.05 376.47 294.39 375.8L295.61 375.34Q296.32 375.04 296.72 374.39Q297.12 373.74 296.95 372.23L295.06 353.92Q294.73 350.77 293.49 349.17Q292.25 347.58 289.73 347.58Q288.3 347.58 286.75 348.33Q285.19 349.09 283.6 350.47ZM345.04 374.46V373.57L343.99 373.45V347.32Q343.99 345.06 342.82 343.75Q341.64 342.45 339.54 342.45Q337.73 342.45 336.66 343.25Q335.59 344.05 335.59 345.27V349.42Q335.59 352.45 333.53 354.09Q331.48 355.72 327.74 355.72Q324.55 355.72 322.93 354.32Q321.31 352.91 321.31 350.35Q321.31 347.66 323.66 345.01Q326.02 342.37 330.66 340.6Q335.3 338.84 342.23 338.84Q350.5 338.84 354.55 342.03Q358.61 345.22 358.61 350.73V371.68Q358.61 372.69 359.05 373.24Q359.49 373.78 360.33 373.78Q361.17 373.78 361.61 373.36Q362.05 372.94 362.43 372.52Q362.68 372.27 362.95 372.06Q363.23 371.85 363.61 371.85Q364.24 371.85 364.51 372.29Q364.78 372.73 364.78 373.45Q364.78 375.09 363.63 376.85Q362.47 378.61 360.16 379.85Q357.85 381.09 354.41 381.09Q350.21 381.09 347.62 379.26Q345.04 377.44 345.04 374.46ZM319.67 371.14Q319.67 365.64 324.61 362.36Q329.54 359.08 338.45 359.08Q341.05 359.08 343.07 359.48Q345.08 359.88 346.47 360.6L345.29 363.75Q344.16 363.16 343.03 362.86Q341.89 362.57 340.55 362.57Q337.78 362.57 336.2 364.14Q334.63 365.72 334.63 368.62Q334.63 371.56 336.05 373.09Q337.48 374.62 339.75 374.62Q341.47 374.62 343.07 373.83Q344.66 373.03 345.63 371.73L346.6 374.58Q344.41 377.69 340.57 379.39Q336.73 381.09 332.36 381.09Q326.69 381.09 323.18 378.3Q319.67 375.51 319.67 371.14Z" fill="#8A3722"/></g><symbol id="dl" viewBox="16 28 448 418"><rect x="350" y="96" width="36" height="74" rx="4" fill="var(--roof)"/><polygon points="240,40 452,226 28,226" fill="var(--roof)" stroke="var(--roof)" stroke-width="14" stroke-linejoin="round"/><path d="M52 246H428V430a10 10 0 0 1-10 10H62a10 10 0 0 1-10-10Z" fill="var(--wall)"/><path d="M104 440V292a30 30 0 0 1 30-30H346a30 30 0 0 1 30 30V440Z" fill="#FFFCF5"/><path d="M104 440V292a30 30 0 0 1 30-30H346a30 30 0 0 1 30 30V440" fill="none" stroke="var(--roof)" stroke-width="8" stroke-linejoin="round"/><circle cx="350" cy="418" r="7" fill="var(--wall)"/><use href="#nmg"/></symbol></defs></svg><div class="prog" id="prog"></div>
+<header class="nav"><div class="wrap"><div class="bb"><a class="brand" href="/doma" aria-label="Doma, accueil"><svg class="logo" viewBox="16 28 448 418" role="img" aria-label="Doma"><use href="#dl"/></svg></a><a class="sc" href="https://souveraincode.com" aria-label="Retourner sur le site de Souverain Code"><span class="by">par&nbsp;</span>Souverain Code<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a></div>
+<nav class="links" aria-label="Navigation"><a href="#fonctions">Fonctions</a><a href="#etapes">Comment ça marche</a><a href="#whatsapp">WhatsApp</a><a href="#tarifs">Tarifs</a><a href="#faq">Questions</a></nav>
+<div class="act"><button class="theme" id="theme" type="button" aria-label="Changer de thème"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg></button><a class="btn sm" href="#contact">Nous contacter</a></div></div></header><main>
+<section class="hero"><div class="wrap"><div class="hgrid">
+  <div>
+    <span class="note-app">Application mobile, lancement prochain sur Android</span>
+    <h1>La gestion locative <em>sans tracasserie.</em></h1>
+    <p class="sub">Doma aide les propriétaires et les agences d’Afrique de l’Ouest à suivre les loyers, relancer sur WhatsApp et encaisser par Mobile Money, sans cahier ni fichier Excel.</p>
+    <div class="cta"><a class="btn" href="https://wa.me/2290140151348?text=Bonjour%2C%20pr%C3%A9venez-moi%20du%20lancement%20de%20Doma%20sur%20Android.">Être prévenu du lancement</a><a class="btn ghost" href="#tarifs">Voir les tarifs</a></div>
+    <div class="proof"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>30 jours d’essai gratuit</span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Sans carte bancaire</span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>Mobile Money et WhatsApp</span></div>
+  </div>
+  <div>
+    <div class="bwrap" id="bwrap"><div class="bld" id="bld" role="img" aria-label="Une résidence dont les fenêtres s’allument en or à mesure que les locataires paient leur loyer">
+      <i class="chim"></i><div class="roof"></div>
+      <div class="wallb"><div class="wins" aria-hidden="true">
+        <div class="win"><i class="ic"></i><div><b>M. Tossou</b><span>30 000 F</span></div></div>
+        <div class="win"><i class="ic"></i><div><b>Mme Gnanvi</b><span>25 000 F</span></div></div>
+        <div class="win"><i class="ic"></i><div><b>Mme Dossou</b><span>45 000 F</span></div></div>
+        <div class="win"><i class="ic"></i><div><b>M. Agossou</b><span>40 000 F</span></div></div>
+        <div class="win"><i class="ic"></i><div><b>Mme Sossou</b><span>35 000 F</span></div></div>
+        <div class="win"><i class="ic"></i><div><b>M. Kpanou</b><span>50 000 F</span></div></div>
+      </div><div class="door"><svg viewBox="116 318 252 66" aria-hidden="true"><use href="#nmg"/></svg></div></div>
+      <div class="bchip l" id="cl" aria-hidden="true"><i>✓✓</i><div><b>Relance livrée</b><small>Lue par Mme Dossou</small></div></div>
+      <div class="bchip r gold" id="cr" aria-hidden="true"><i>+</i><div><b id="crt">+ 45 000 FCFA</b><small>Reçu envoyé au locataire</small></div></div>
+    </div></div>
+    <div class="tally"><div><small>Encaissé ce mois</small><span class="big"><span id="cnt">1 245 000</span> F</span><small>sur 1 520 000 attendus</small></div><div class="bar" aria-hidden="true"><i id="barf"></i></div></div>
+  </div>
+</div></div></section>
 
-      <div class="mq" aria-hidden="true">
-        <div class="tr" data-m>
-          <span class="it"><i>01</i>Suivi des loyers</span
-          ><span class="it"
-            ><i>◎</i>Relances WhatsApp <em>automatiques</em></span
-          ><span class="it"><i>₣</i>Paiement Mobile Money</span
-          ><span class="it"><i>▦</i>Lien et QR par logement</span
-          ><span class="it"><i>✓</i>Reçus envoyés seuls</span
-          ><span class="it"><i>♪</i>Saisie à la voix</span>
-        </div>
-        <div class="tr rv" data-m>
-          <span class="it"><i>30</i>jours d’essai <em>gratuit</em></span
-          ><span class="it"><i>⌂</i>Résidences, studios, boutiques</span
-          ><span class="it"><i>⇄</i>Solde et retrait</span
-          ><span class="it"><i>◈</i>API officielle WhatsApp Business</span
-          ><span class="it"><i>⚑</i>Équipe et droits (Pro)</span
-          ><span class="it"><i>◐</i>Pensé pour l’Afrique de l’Ouest</span>
-        </div>
-      </div>
+<section class="manifest"><div class="wrap">
+  <p class="mtxt" id="mtxt">Un cahier. Des appels. Des captures d’écran. Doma remplace tout ça : vous voyez qui a payé, qui est en retard, et Doma relance pour vous.</p>
+  <p class="mfoot">Un seul écran répond à une seule question : de quoi dois-je m’occuper maintenant ?</p>
+</div></section>
 
-      <section id="fonctions">
-        <div class="wrap">
-          <div class="head" data-r>
-            <p class="eyebrow">Fonctions</p>
-            <h2>Tout ce qu’il faut pour être payé à temps.</h2>
-            <p class="sub">
-              Un écran qui répond à une seule question : de quoi dois-je
-              m’occuper maintenant ?
-            </p>
-          </div>
-          <div class="bento">
-            <div class="card" data-r>
-              <div class="ico">
-                <svg viewBox="0 0 24 24">
-                  <path d="M4 19V9m6 10V5m6 14v-7m4 7H2" />
-                </svg>
-              </div>
-              <h3>Des loyers toujours clairs</h3>
-              <p>
-                Chaque locataire a son propre loyer. Doma calcule ce qui est
-                payé, ce qui reste dû et ce qui est en retard. Aucun calcul à
-                faire.
-              </p>
-            </div>
-            <div class="card" data-r style="--rd: 0.1s">
-              <div class="ico">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M21 12a8 8 0 0 1-11.7 7L4 20l1.1-4.3A8 8 0 1 1 21 12z"
-                  />
-                </svg>
-              </div>
-              <h3>Relances sur WhatsApp</h3>
-              <p>
-                Un rappel poli part au locataire, avec votre nom. Un message,
-                une note vocale ou une relance groupée pour toute une résidence.
-              </p>
-            </div>
-            <div class="card" data-r style="--rd: 0.2s">
-              <div class="ico">
-                <svg viewBox="0 0 24 24">
-                  <rect x="3" y="3" width="7" height="7" rx="1" />
-                  <rect x="14" y="3" width="7" height="7" rx="1" />
-                  <rect x="3" y="14" width="7" height="7" rx="1" />
-                  <path d="M14 14h3v3h-3zM20 14v.01M14 20h3m3-3v4" />
-                </svg>
-              </div>
-              <h3>Lien et QR de paiement</h3>
-              <p>
-                Chaque locataire reçoit son lien et son QR code, choisit son
-                montant et paie en Mobile Money. Le paiement s’enregistre seul.
-              </p>
-            </div>
-            <div class="card" data-r>
-              <div class="ico">
-                <svg viewBox="0 0 24 24">
-                  <rect x="9" y="3" width="6" height="11" rx="3" />
-                  <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
-                </svg>
-              </div>
-              <h3>Saisie à la voix</h3>
-              <p>
-                Espèces ou virement reçus directement ? Dictez le paiement ou
-                tapez-le en quelques secondes.
-              </p>
-            </div>
-            <div class="card" data-r style="--rd: 0.1s">
-              <div class="ico">
-                <svg viewBox="0 0 24 24">
-                  <path
-                    d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM3 7l2-3h12v3"
-                  />
-                  <circle cx="16.5" cy="13.5" r="1.2" />
-                </svg>
-              </div>
-              <h3>Votre solde, à votre rythme</h3>
-              <p>
-                Les loyers payés par lien s’ajoutent à votre solde. Vous voyez
-                le disponible, l’en cours, et vous retirez quand vous voulez.
-              </p>
-            </div>
-            <div class="card" data-r style="--rd: 0.2s">
-              <div class="ico">
-                <svg viewBox="0 0 24 24">
-                  <circle cx="9" cy="8" r="3.5" />
-                  <path
-                    d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"
-                  />
-                </svg>
-              </div>
-              <h3>Pour les agences</h3>
-              <p>
-                La formule Pro permet d’inviter votre équipe, avec des droits
-                différents selon chacun, sans partager votre accès.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+<section id="fonctions"><div class="wrap">
+  <div class="head"><h2>Tout ce qu’il faut pour être payé à temps.</h2></div>
+  <div class="bento">
+    <div class="bx s4"><h3>Des loyers toujours clairs</h3><p>Chaque locataire a son propre loyer. Doma calcule ce qui est payé, ce qui reste dû et ce qui est en retard. Aucun calcul à faire.</p>
+      <div class="vis pillrow">
+        <div class="pr"><span class="av" style="background:#A8462F">MD</span><div class="t"><b>Mme Dossou</b><span>45 000 F</span></div><span class="tag r">En retard de 3 jours</span></div>
+        <div class="pr"><span class="av" style="background:#B8842E">KT</span><div class="t"><b>M. Tossou</b><span>30 000 F</span></div><span class="tag a">Reste 15 000 F</span></div>
+        <div class="pr"><span class="av" style="background:#2E6B4C">AG</span><div class="t"><b>Mme Gnanvi</b><span>25 000 F</span></div><span class="tag g">À jour</span></div>
+      </div></div>
+    <div class="bx s2 night"><h3>Relances sur WhatsApp</h3><p>Un rappel poli part au locataire, avec votre nom. Un message, une note vocale ou une relance groupée pour toute une résidence.</p>
+      <div class="vis"><div class="bub">Rappel de loyer : M. Adjovi vous rappelle que votre loyer de 45 000 FCFA n’a pas encore été réglé.<span class="tk">✓✓ Lu</span></div></div></div>
+    <div class="bx s2 gold"><h3>Lien et QR de paiement</h3><p>Chaque locataire reçoit son lien et son QR code, choisit son montant et paie en Mobile Money. Le paiement s’enregistre seul.</p>
+      <div class="vis qrbox"><div class="qr" data-qr="7"></div><span>Scannez,<br>payez, c’est noté.</span></div></div>
+    <div class="bx s4 clay"><h3>Relances en note vocale</h3><p>Enregistrez un vocal de relance : il part directement sur WhatsApp, au locataire ou à toute une résidence. Les paiements, eux, se saisissent au clavier, pour éviter toute erreur.</p>
+      <div class="vis"><div class="vmsg"><span class="play" aria-hidden="true"></span><div class="wave" id="wave" aria-hidden="true"></div><span class="dur">0:12</span><span class="tk">✓✓</span></div></div></div>
+    <div class="bx s3 navy"><h3>Votre solde, à votre rythme</h3><p>Les loyers payés par lien s’ajoutent à votre solde. Vous voyez le disponible, l’en cours, et vous retirez quand vous voulez.</p>
+      <div class="vis"><div class="bal wd-bal">180 000 F</div><div class="wait"><span>En cours de traitement</span><b>45 000 F</b></div><button class="mini-btn wd-btn" type="button">Retirer vers Mobile Money</button><p class="wd-msg" aria-live="polite"></p><button class="wd-replay" type="button" hidden>Rejouer la démonstration</button></div></div>
+    <div class="bx s3"><h3>Pour les agences</h3><p>La formule Pro permet d’inviter votre équipe, avec des droits différents selon chacun, sans partager votre accès.</p>
+      <div class="vis team"><div class="avs"><i style="background:#A8462F">AB</i><i style="background:#B8842E">CK</i><i style="background:#2E6B4C">FD</i><i style="background:#2E3860">+3</i></div><span class="tag a">Gestionnaire</span><span class="tag g">Lecture</span></div></div>
+  </div>
+</div></section>
 
-      <section id="etapes" class="band">
-        <div class="wrap">
-          <div class="head" data-r>
-            <p class="eyebrow">Comment ça marche</p>
-            <h2>Du premier locataire au premier retrait.</h2>
-          </div>
-          <ol class="steps">
-            <li data-r>
-              <h3>Vous ajoutez un locataire</h3>
-              <p>Son nom, son numéro WhatsApp, son logement et son loyer.</p>
-            </li>
-            <li data-r style="--rd: 0.12s">
-              <h3>Il reçoit un message d’accueil</h3>
-              <p>
-                Doma lui présente son propriétaire et lui envoie son lien et son
-                QR de paiement.
-              </p>
-            </li>
-            <li data-r style="--rd: 0.24s">
-              <h3>Il paie, ou Doma le relance</h3>
-              <p>
-                Le loyer arrive par Mobile Money. S’il tarde, un rappel part.
-              </p>
-            </li>
-            <li data-r style="--rd: 0.36s">
-              <h3>Vous retirez votre argent</h3>
-              <p>
-                Le solde disponible part vers votre Mobile Money, après un code
-                de confirmation.
-              </p>
-            </li>
-          </ol>
-        </div>
-      </section>
+<section id="etapes" class="stepsec"><div class="wrap">
+  <div class="head"><h2>Du premier locataire au premier retrait.</h2></div>
+  <div class="two">
+    <div id="steps">
+      <article class="step on"><span class="num" aria-hidden="true">1</span><h3>Vous ajoutez un locataire</h3><p>Son nom, son numéro WhatsApp, son logement et son loyer.</p></article>
+      <article class="step"><span class="num" aria-hidden="true">2</span><h3>Il reçoit un message d’accueil</h3><p>Doma lui présente son propriétaire et lui envoie son lien et son QR de paiement.</p></article>
+      <article class="step"><span class="num" aria-hidden="true">3</span><h3>Il paie, ou Doma le relance</h3><p>Le loyer arrive par Mobile Money. S’il tarde, un rappel part.</p></article>
+      <article class="step"><span class="num" aria-hidden="true">4</span><h3>Vous retirez votre argent</h3><p>Le solde disponible part vers votre Mobile Money, après un code de confirmation.</p></article>
+    </div>
+    <div class="pcol"><div class="pfit"><div class="phone" aria-label="Aperçu de l’application Doma"><span class="punch"></span><div class="screen">
+      <div class="status"><span>09:12</span><span>●●● ▮</span></div>
+      <div class="scene on"><h3 class="ah">Nouveau locataire</h3><p class="as">Résidence Les Palmiers</p>
+        <div class="fld"><small>Nom</small><b>Awa Dossou</b></div><div class="fld"><small>Numéro WhatsApp</small><b>+229 01 •• •• •• ••</b></div><div class="fld"><small>Logement</small><b>Appartement A2</b></div><div class="fld"><small>Loyer</small><b>45 000 FCFA</b></div>
+        <button class="send" tabindex="-1">Ajouter le locataire</button></div>
+      <div class="scene"><div class="wtop"><i>D</i><div><b>Doma</b><span>Compte professionnel</span></div></div>
+        <div class="wmsg">Bonjour Awa, M. Adjovi (Résidence Les Palmiers) utilise Doma pour suivre vos loyers. Pensez à enregistrer ce numéro.</div>
+        <div class="wmsg">Votre loyer : 45 000 FCFA<div class="qr" data-qr="3"></div><span class="bt">Payer mon loyer</span></div></div>
+      <div class="scene pay"><div class="okc"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div><h3 class="ah">Paiement reçu</h3><div class="amt">45 000 FCFA</div>
+        <p class="as" style="margin:0 auto 10px">Mme Dossou a payé par Mobile Money avec son lien Doma</p><span class="badge">✓ À jour</span>
+        <div class="row"><div><b>Reçu envoyé sur WhatsApp</b><span>Vous êtes prévenu, sans rien saisir</span></div></div></div>
+      <div class="scene"><h3 class="ah">Solde</h3><p class="as">Démonstration · loyers payés par lien et QR</p>
+        <div class="pbal"><small>Disponible</small><div class="big wd-bal">180 000 F</div></div><div class="pwait"><span>En cours de traitement</span><b>45 000 F</b></div>
+        <button class="send wd-btn" type="button">Retirer vers Mobile Money</button><p class="wd-msg" aria-live="polite"></p><button class="wd-replay" type="button" hidden>Rejouer</button></div>
+      <div class="tabs"><span class="cur">Aujourd’hui</span><span>Résidences</span><span>Locataires</span><span>Plus</span></div>
+    </div></div></div><div class="mcap" id="mcap" aria-live="polite"></div></div>
+  </div>
+</div></section>
 
-      <section id="whatsapp">
-        <div class="wrap">
-          <div class="wa">
-            <div data-r>
-              <p class="eyebrow">WhatsApp</p>
-              <h2>Comment Doma utilise WhatsApp.</h2>
-              <p class="sub">
-                Tous les messages partent d’un numéro unique, le
-                <strong style="color: var(--ink)">+229 01 54 30 72 71</strong>,
-                par l’API officielle WhatsApp Business de Meta. Jamais depuis
-                votre numéro personnel.
-              </p>
-              <ul>
-                <li><b>Accueil</b> quand vous ajoutez un locataire</li>
-                <li><b>Rappels de loyer</b> et remerciements</li>
-                <li><b>Reçus</b> après chaque paiement en ligne</li>
-                <li><b>Notes vocales</b> de relance</li>
-                <li><b>Codes de connexion</b> des propriétaires</li>
-              </ul>
-              <p class="note">
-                Pas de publicité, aucun message sans lien avec un loyer. Avant
-                d’ajouter un locataire, vous confirmez que son numéro vous a été
-                donné pour les échanges liés au loyer. Pour ne plus recevoir de
-                messages, un locataire peut écrire à
-                <a href="mailto:hello@souveraincode.com"
-                  >hello@souveraincode.com</a
-                >.
-              </p>
-            </div>
-            <div
-              class="chat"
-              data-r
-              style="--rd: 0.1s"
-              aria-label="Exemple de conversation"
-            >
-              <div class="who">
-               <svg viewBox="16 28 448 418" aria-hidden="true" style="--roof:#8a3722;--wall:#a8462f">
-                 <use href="#h" x="16" y="28" />          
-                </svg>
-                <div><b>Doma</b><span>Compte professionnel WhatsApp</span></div>
-              </div>
-              <div class="bub">
-                Bonjour Awa, M. Adjovi (Résidence Les Palmiers) utilise Doma
-                pour suivre vos loyers. C’est par ce numéro que vous recevrez
-                vos rappels et vos reçus. Pensez à l’enregistrer.<span
-                  class="bt"
-                  >Payer mon loyer</span
-                >
-              </div>
-              <div class="bub">
-                <b>Reçu de paiement :</b> nous avons bien reçu 45 000 FCFA pour
-                votre loyer. Merci !
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<section id="whatsapp" class="wa"><div class="wrap"><div class="cols">
+  <div><h2>Comment Doma utilise WhatsApp.</h2>
+    <p class="sub">Tous les messages partent d’un numéro unique, par l’API officielle WhatsApp Business de Meta. Jamais depuis votre numéro personnel.</p>
+    <span class="bignum">+229 01 54 30 72 71</span>
+    <ul><li><b>Accueil</b> quand vous ajoutez un locataire</li><li><b>Rappels de loyer</b> et remerciements</li><li><b>Reçus</b> après chaque paiement en ligne</li><li><b>Notes vocales</b> de relance</li><li><b>Codes de connexion</b> des propriétaires</li></ul>
+    <p class="note">Pas de publicité, aucun message sans lien avec un loyer. Avant d’ajouter un locataire, vous confirmez que son numéro vous a été donné pour les échanges liés au loyer. Pour ne plus recevoir de messages, un locataire peut écrire à <a href="mailto:hello@souveraincode.com">hello@souveraincode.com</a>.</p></div>
+  <div class="chat" id="chat" aria-label="Exemple de conversation">
+    <div class="who"><svg viewBox="16 28 448 418" aria-hidden="true" style="--roof:#8a3722;--wall:#a8462f"><use href="#dl"/></svg><div><b>Doma</b><span>Compte professionnel WhatsApp</span></div></div>
+    <div class="bub">Bonjour Awa, M. Adjovi (Résidence Les Palmiers) utilise Doma pour suivre vos loyers. C’est par ce numéro que vous recevrez vos rappels et vos reçus. Pensez à l’enregistrer.<span class="bt">Payer mon loyer</span></div>
+    <div class="bub"><b>Reçu de paiement :</b> nous avons bien reçu 45 000 FCFA pour votre loyer. Merci !</div></div>
+</div></div></section>
 
-      <section id="tarifs" class="band">
-        <div class="wrap">
-          <div class="head" data-r>
-            <p class="eyebrow">Tarifs</p>
-            <h2>Un prix qui suit votre parc.</h2>
-            <p class="sub">
-              30 jours d’essai gratuit, sans carte bancaire, avec un code promo
-              valide. Prix par mois, en francs CFA.
-            </p>
-          </div>
-          <div class="prices">
-            <div class="card price" data-r>
-              <span class="n">Simple</span>
-              <div class="p">5 000 <small>FCFA / mois</small></div>
-              <p style="font-size: 15px">Pour un propriétaire qui démarre.</p>
-              <ul>
-                <li>2 résidences</li>
-                <li>12 locataires</li>
-                <li>Relances WhatsApp</li>
-                <li>Lien et QR de paiement</li>
-              </ul>
-            </div>
-            <div class="card price" data-r style="--rd: 0.12s">
-              <span class="n">Standard</span>
-              <div class="p">12 000 <small>FCFA / mois</small></div>
-              <p style="font-size: 15px">Pour un bailleur qui grandit.</p>
-              <ul>
-                <li>5 résidences</li>
-                <li>25 locataires</li>
-                <li>Relances WhatsApp</li>
-                <li>Lien et QR de paiement</li>
-              </ul>
-            </div>
-            <div class="card price pro" data-r style="--rd: 0.24s">
-              <span class="tag">Agences</span><span class="n">Pro</span>
-              <div class="p">25 000 <small>FCFA / mois</small></div>
-              <p style="font-size: 15px">Pour les agences.</p>
-              <ul>
-                <li>Résidences et locataires illimités</li>
-                <li>Compte multi-utilisateur</li>
-                <li>Relances WhatsApp</li>
-                <li>Lien et QR de paiement</li>
-              </ul>
-            </div>
-          </div>
-          <p class="note">
-            L’abonnement se paie par Mobile Money ou carte via FedaPay. Vous
-            pouvez payer jusqu’à 12 mois d’avance. Les frais éventuels sur les
-            loyers encaissés et les retraits sont affichés dans l’application
-            avant toute opération.
-          </p>
-        </div>
-      </section>
+<section id="tarifs"><div class="wrap">
+  <div class="head"><h2>Un prix qui suit votre parc.</h2><p class="sub">30 jours d’essai gratuit, sans carte bancaire, avec un code promo valide. Prix par mois, en francs CFA.</p></div>
+  <div class="prices">
+    <div class="price"><span class="n">Simple</span><div class="p">5 000 <small>FCFA / mois</small></div><p>Pour un propriétaire qui démarre.</p><ul><li>2 résidences</li><li>12 locataires</li><li>Relances WhatsApp</li><li>Lien et QR de paiement</li></ul></div>
+    <div class="price"><span class="n">Standard</span><div class="p">12 000 <small>FCFA / mois</small></div><p>Pour un bailleur qui grandit.</p><ul><li>5 résidences</li><li>25 locataires</li><li>Relances WhatsApp</li><li>Lien et QR de paiement</li></ul></div>
+    <div class="price pro"><span class="flag">Agences</span><span class="n">Pro</span><div class="p">25 000 <small>FCFA / mois</small></div><p>Pour les agences.</p><ul><li>Résidences et locataires illimités</li><li>Compte multi-utilisateur</li><li>Relances WhatsApp</li><li>Lien et QR de paiement</li></ul></div>
+  </div>
+  <p class="pnote">L’abonnement se paie par Mobile Money ou carte via FedaPay. Vous pouvez payer jusqu’à 12 mois d’avance. Les frais éventuels sur les loyers encaissés et les retraits sont affichés dans l’application avant toute opération.</p>
+</div></section>
 
-      <section id="faq">
-        <div class="wrap">
-          <div class="head" data-r>
-            <p class="eyebrow">FAQ</p>
-            <h2>Questions fréquentes.</h2>
-          </div>
-          <div class="faq">
-            <details data-r>
-              <summary>
-                Mes locataires doivent-ils installer une application ?
-              </summary>
-              <p>
-                Non. Ils reçoivent un message WhatsApp et paient depuis le lien
-                ou le QR code, dans leur navigateur.
-              </p>
-            </details>
-            <details data-r>
-              <summary>Et si un locataire paie en espèces ?</summary>
-              <p>
-                Vous enregistrez le paiement vous-même, au clavier ou à la voix.
-                Il compte comme les autres dans le calcul du reste dû.
-              </p>
-            </details>
-            <details data-r>
-              <summary>
-                Doma voit-elle les codes Mobile Money de mes locataires ?
-              </summary>
-              <p>
-                Non. Le paiement se fait chez FedaPay. Doma ne voit ni ne
-                conserve les codes secrets ni les numéros de carte.
-              </p>
-            </details>
-            <details data-r>
-              <summary>Que se passe-t-il à la fin de l’essai ?</summary>
-              <p>
-                Sans abonnement, le compte passe en lecture seule : vous voyez
-                toutes vos données, mais vous ne pouvez plus rien ajouter ni
-                envoyer. Un paiement le réactive aussitôt.
-              </p>
-            </details>
-            <details data-r>
-              <summary>Qui voit les informations de mes locataires ?</summary>
-              <p>
-                Vous seul, et les membres de votre équipe si vous avez la
-                formule Pro. Tout est détaillé dans la
-                <a href="/doma/confidentialite">politique de confidentialité</a
-                >.
-              </p>
-            </details>
-            <details data-r>
-              <summary>Comment supprimer mon compte ?</summary>
-              <p>
-                Depuis l’écran Profil de l’application, ou en écrivant à
-                <a href="mailto:hello@souveraincode.com"
-                  >hello@souveraincode.com</a
-                >.
-              </p>
-            </details>
-          </div>
-        </div>
-      </section>
+<section id="faq" style="padding-top:60px"><div class="wrap"><div class="faqg">
+  <div class="l"><h2>Questions fréquentes.</h2></div>
+  <div>
+    <details><summary>Mes locataires doivent-ils installer une application ?</summary><p>Non. Ils reçoivent un message WhatsApp et paient depuis le lien ou le QR code, dans leur navigateur.</p></details>
+    <details><summary>Et si un locataire paie en espèces ?</summary><p>Vous enregistrez le paiement vous-même, au clavier. Il compte comme les autres dans le calcul du reste dû.</p></details>
+    <details><summary>Doma voit-elle les codes Mobile Money de mes locataires ?</summary><p>Non. Le paiement se fait chez FedaPay. Doma ne voit ni ne conserve les codes secrets ni les numéros de carte.</p></details>
+    <details><summary>Que se passe-t-il à la fin de l’essai ?</summary><p>Sans abonnement, le compte passe en lecture seule : vous voyez toutes vos données, mais vous ne pouvez plus rien ajouter ni envoyer. Un paiement le réactive aussitôt.</p></details>
+    <details><summary>Qui voit les informations de mes locataires ?</summary><p>Vous seul, et les membres de votre équipe si vous avez la formule Pro. Tout est détaillé dans la <a href="/doma/confidentialite">politique de confidentialité</a>.</p></details>
+    <details><summary>Comment supprimer mon compte ?</summary><p>Depuis l’écran Profil de l’application, ou en écrivant à <a href="mailto:hello@souveraincode.com">hello@souveraincode.com</a>.</p></details>
+  </div>
+</div></div></section>
 
-      <section id="contact" class="band">
-        <div class="wrap">
-          <div class="contact">
-            <div data-r>
-              <p class="eyebrow">Contact</p>
-              <h2>Parlons de Doma.</h2>
-              <p class="sub">
-                Une question, une agence à équiper, un partenariat :
-                écrivez-nous.
-              </p>
-              <div class="cta" style="margin-top: 26px">
-                <a class="btn" href="https://wa.me/2290140151348"
-                  >Écrire sur WhatsApp</a
-                ><a class="btn ghost" href="mailto:hello@souveraincode.com"
-                  >hello@souveraincode.com</a
-                >
-              </div>
-            </div>
-            <div class="card id" data-r style="--rd: 0.1s">
-              <p>
-                <b>SOUVERAIN CODE</b> (sigle S-Code), société à responsabilité
-                limitée.
-              </p>
-              <p>RCCM : RB/COT/26 B 44522 · IFU : 3202675819667</p>
-              <p>
-                Siège social : Ilot 1625, quartier Aïbatin Dodo, parcelle C,
-                Cotonou (Bénin)
-              </p>
-              <p>
-                Contact :
-                <a href="https://wa.me/2290140151348">+229 01 40 15 13 48</a> ·
-                <a href="mailto:hello@souveraincode.com"
-                  >hello@souveraincode.com</a
-                >
-              </p>
-              <p>
-                Numéro d’envoi des messages Doma : +229 01 54 30 72 71 (ce
-                numéro n’est pas une ligne de support).
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-    <footer>
-      <div class="wrap">
-        <div class="cols">
-          <div>
-            <a href="/doma" aria-label="Doma"
-              ><svg class="logo" viewBox="16 28 448 418" style="width:96px;height:90px" role="img" aria-label="Doma">
-                   <use href="#dl" x="16" y="28" />        
-                </svg></a>
-            <p style="margin-top: 14px">
-              <strong style="color: var(--ink)">Doma</strong> est un produit de
-              <a href="/">Souverain Code</a>.
-            </p>
-            <p>
-              SOUVERAIN CODE, société à responsabilité limitée au capital de 50
-              000 FCFA.<br />RCCM RB/COT/26 B 44522 · IFU 3202675819667<br />Siège
-              : Ilot 1625, quartier Aïbatin Dodo, parcelle C, Cotonou (Bénin)
-            </p>
-          </div>
-          <div>
-            <ul>
-              <li>
-                <a href="/doma/confidentialite">Politique de confidentialité</a>
-              </li>
-              <li><a href="/doma/conditions">Conditions d’utilisation</a></li>
-              <li>
-                <a href="mailto:hello@souveraincode.com"
-                  >hello@souveraincode.com</a
-                >
-              </li>
-              <li><a href="/">Souverain Code</a></li>
-            </ul>
-          </div>
-        </div>
-        <p style="margin-top: 26px; max-width: none">
-          © <span id="yr">2026</span> Souverain Code. Tous droits réservés.
-        </p>
-      </div>
-    </footer>
-    <script>
-      (function () {
-        var r = document.documentElement,
-          reduce = matchMedia("(prefers-reduced-motion: reduce)").matches,
-          $ = function (i) {
-            return document.getElementById(i);
-          },
-          all = function (s) {
-            return [].slice.call(document.querySelectorAll(s));
-          };
-        $("yr").textContent = new Date().getFullYear();
-        var tb = $("theme"),
-          tm = document.querySelector("meta[name=theme-color]");
-        function paint() {
-          var d = r.getAttribute("data-theme") === "dark";
-          tm.setAttribute("content", d ? "#100B09" : "#F6EEDE");
-          tb.setAttribute(
-            "aria-label",
-            d ? "Passer en mode clair" : "Passer en mode sombre",
-          );
-        }
-        tb.addEventListener("click", function () {
-          var n = r.getAttribute("data-theme") === "dark" ? "light" : "dark";
-          r.setAttribute("data-theme", n);
-          try {
-            localStorage.setItem("doma-theme", n);
-          } catch (e) {}
-          paint();
-        });
-        paint();
-        all("[data-m]").forEach(function (t) {
-          t.innerHTML += t.innerHTML;
-        });
-        var sc = all(".scene"),
-          dt = all("#dots button"),
-          fl = all(".fl"),
-          cap = $("cap"),
-          cn = $("cnt"),
-          i = 0,
-          t;
-        var caps = [
-          "Voyez ce qui demande votre attention.",
-          "Relancez en un geste, sur WhatsApp.",
-          "Le paiement s’enregistre tout seul.",
-          "Retirez votre argent quand vous voulez.",
-        ];
-        function fmt(n) {
-          return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\u202f");
-        }
-        function count() {
-          if (reduce) return;
-          var s = null;
-          (function f(ts) {
-            if (!s) s = ts;
-            var p = Math.min((ts - s) / 1400, 1);
-            cn.textContent = fmt(
-              Math.round(1245000 * (1 - Math.pow(1 - p, 3))),
-            );
-            if (p < 1) requestAnimationFrame(f);
-          })(performance.now());
-        }
-        function show(n) {
-          i = n;
-          sc.forEach(function (s, k) {
-            s.classList.toggle("on", k === n);
-          });
-          dt.forEach(function (d, k) {
-            d.setAttribute("aria-current", k === n ? "true" : "false");
-          });
-          fl.forEach(function (f) {
-            f.classList.toggle("on", +f.dataset.s === n);
-          });
-          cap.textContent = caps[n];
-          if (n === 0) count();
-        }
-        function go() {
-          clearInterval(t);
-          if (!reduce)
-            t = setInterval(function () {
-              show((i + 1) % 4);
-            }, 4800);
-        }
-        dt.forEach(function (d, k) {
-          d.addEventListener("click", function () {
-            show(k);
-            go();
-          });
-        });
-        show(0);
-        go();
-        var els = all("[data-r]");
-        if (reduce || !("IntersectionObserver" in window))
-          els.forEach(function (e) {
-            e.classList.add("in");
-          });
-        else {
-          var io = new IntersectionObserver(
-            function (es) {
-              es.forEach(function (e) {
-                if (e.isIntersecting) {
-                  e.target.classList.add("in");
-                  io.unobserve(e.target);
-                }
-              });
-            },
-            { threshold: 0.12 },
-          );
-          els.forEach(function (e) {
-            io.observe(e);
-          });
-        }
-        all(".card").forEach(function (c) {
-          c.addEventListener("pointermove", function (v) {
-            var b = c.getBoundingClientRect();
-            c.style.setProperty("--mx", v.clientX - b.left + "px");
-            c.style.setProperty("--my", v.clientY - b.top + "px");
-          });
-        });
-        var ph = $("ph"),
-          h = document.querySelector(".hero");
-        if (!reduce && matchMedia("(hover:hover)").matches) {
-          h.addEventListener("pointermove", function (e) {
-            var b = h.getBoundingClientRect(),
-              x = (e.clientX - b.left) / b.width - 0.5,
-              y = (e.clientY - b.top) / b.height - 0.5;
-            ph.style.transform =
-              "perspective(1000px) rotateY(" +
-              x * 12 +
-              "deg) rotateX(" +
-              -y * 8 +
-              "deg)";
-          });
-          h.addEventListener("pointerleave", function () {
-            ph.style.transform = "";
-          });
-        }
-        var pr = $("prog");
-        function sp() {
-          var m = document.documentElement.scrollHeight - innerHeight;
-          pr.style.transform =
-            "scaleX(" + (m > 0 ? Math.min(scrollY / m, 1) : 0) + ")";
-        }
-        addEventListener("scroll", sp, { passive: true });
-        sp();
-      })();
-    </script>
-  </body>
-</html>
+<section id="contact" class="sig">
+  <svg class="bgh" viewBox="16 28 448 418" aria-hidden="true" style="--roof:#F6EEDE;--wall:#F6EEDE"><use href="#dl"/></svg>
+  <div class="wrap"><div class="cols">
+    <div><h2>Parlons de Doma.</h2><p class="sub">Une question, une agence à équiper, un partenariat : écrivez-nous.</p>
+      <div class="cta" style="margin-top:30px"><a class="btn" href="https://wa.me/2290140151348">Écrire sur WhatsApp</a><a class="btn ghost" href="mailto:hello@souveraincode.com">hello@souveraincode.com</a></div></div>
+    <div><div class="idc">
+      <p><b>SOUVERAIN CODE</b> (sigle S-Code), société à responsabilité limitée.</p><p>RCCM : RB/COT/26 B 44522 · IFU : 3202675819667</p>
+      <p>Siège social : Ilot 1625, quartier Aïbatin Dodo, parcelle C, Cotonou (Bénin)</p>
+      <p>Contact : <a href="https://wa.me/2290140151348">+229 01 40 15 13 48</a> · <a href="mailto:hello@souveraincode.com">hello@souveraincode.com</a></p>
+      <p>Numéro d’envoi des messages Doma : +229 01 54 30 72 71 (ce numéro n’est pas une ligne de support).</p></div>
+      <p class="legal-row"><a href="/doma/confidentialite">Politique de confidentialité</a><a href="/doma/conditions">Conditions d’utilisation</a></p></div>
+  </div></div>
+</section>
+</main>
+<footer><div class="wrap"><div class="cols"><div><a href="/doma" aria-label="Doma"><svg class="logo" viewBox="16 28 448 418" style="width:96px;height:90px" role="img" aria-label="Doma"><use href="#dl"/></svg></a>
+<p style="margin-top:14px"><b>Doma</b> est un produit de <a href="https://souveraincode.com">Souverain Code</a>.</p>
+<p>SOUVERAIN CODE, société à responsabilité limitée au capital de 50 000 FCFA.<br>RCCM RB/COT/26 B 44522 · IFU 3202675819667<br>Siège : Ilot 1625, quartier Aïbatin Dodo, parcelle C, Cotonou (Bénin)</p></div>
+<div><ul><li><a href="/doma/confidentialite">Politique de confidentialité</a></li><li><a href="/doma/conditions">Conditions d’utilisation</a></li><li><a href="mailto:hello@souveraincode.com">hello@souveraincode.com</a></li><li><a href="https://souveraincode.com">Souverain Code</a></li></ul></div></div>
+<p style="margin-top:26px;max-width:none">© 2026 Souverain Code. Tous droits réservés.</p></div></footer><script>(function(){var r=document.documentElement,b=document.getElementById('theme'),m=document.querySelector('meta[name=theme-color]');function p(){var d=r.getAttribute('data-theme')==='dark';m.setAttribute('content',d?'#100B09':'#F6EEDE');b.setAttribute('aria-label',d?'Passer en mode clair':'Passer en mode sombre')}b.addEventListener('click',function(){var n=r.getAttribute('data-theme')==='dark'?'light':'dark';r.setAttribute('data-theme',n);try{localStorage.setItem('doma-theme',n)}catch(e){}p()});p()})()</script><script>(function(){
+var $=function(i){return document.getElementById(i)},all=function(s){return[].slice.call(document.querySelectorAll(s))};
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function rng(s){return function(){s=(s*9301+49297)%233280;return s/233280}}
+all('[data-qr]').forEach(function(q){var R=rng(+q.getAttribute('data-qr')),h='';
+ for(var y=0;y<9;y++)for(var x=0;x<9;x++){var k,fx=x<3||x>5,fy=y<3||y>5;
+  if(fx&&fy&&!(x>5&&y>5)){var lx=x>5?x-6:x,ly=y>5?y-6:y;k=(lx===1&&ly===1)?0:1}else k=R()>.48?1:0;
+  h+='<i'+(k?' class="k"':'')+'></i>'}q.innerHTML=h});
+var wv=$('wave');if(wv){var R2=rng(11),h='';for(var i=0;i<34;i++)h+='<i style="animation-delay:-'+(R2()*1.3).toFixed(2)+'s"></i>';wv.innerHTML=h}
+
+/* manifeste */
+var mt=$('mtxt'),f=document.createDocumentFragment();
+mt.textContent.split(/(\s+)/).forEach(function(t){if(!t)return;if(/^\s+$/.test(t))f.appendChild(document.createTextNode(' '));else{var s=document.createElement('span');s.className='w';s.textContent=t;f.appendChild(s)}});
+mt.textContent='';mt.appendChild(f);
+var words=all('#mtxt .w');
+function mscroll(){var b=mt.getBoundingClientRect(),p=(innerHeight*.82-b.top)/(b.height+innerHeight*.18);p=Math.max(0,Math.min(1,p));var n=Math.round(p*words.length);words.forEach(function(w,i){w.classList.toggle('on',i<n)})}
+
+/* résidence */
+var W=all('.win'),cl=$('cl'),cr=$('cr'),crt=$('crt'),cnt=$('cnt'),barf=$('barf'),bld=$('bld');
+var INIT=['paid','paid','late','due','paid','due'],IC={paid:'✓',late:'!',due:'·'};
+function setS(i,s){W[i].setAttribute('data-s',s);W[i].querySelector('.ic').textContent=IC[s]}
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
+var cur=1245000;
+function tween(to){var from=cur,t0=null;cur=to;if(reduce){cnt.textContent=fmt(to);return}(function g(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/1100,1);cnt.textContent=fmt(Math.round(from+(to-from)*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(g)})(performance.now())}
+function reset(){INIT.forEach(function(s,i){setS(i,s)});cl.classList.remove('on');cr.classList.remove('on');cur=1245000;cnt.textContent=fmt(cur);barf.style.width='82%'}
+reset();
+var T=[],run=false;function at(ms,fn){T.push(setTimeout(fn,ms))}
+function loop(){reset();
+ at(1300,function(){cl.classList.add('on')});
+ at(4200,function(){cl.classList.remove('on');setS(2,'paid');crt.textContent='+ 45 000 FCFA';cr.classList.add('on');tween(1290000);barf.style.width='85%'});
+ at(7000,function(){cr.classList.remove('on')});
+ at(7600,function(){setS(3,'paid');crt.textContent='+ 40 000 FCFA';cr.classList.add('on');tween(1330000);barf.style.width='88%'});
+ at(10600,function(){cr.classList.remove('on')});
+ at(12600,function(){if(run)loop()})}
+function startB(){if(run||reduce)return;run=true;loop()}function stopB(){run=false;T.forEach(clearTimeout);T=[]}
+if(reduce)INIT.forEach(function(s,i){setS(i,s==='late'?'paid':s)});
+if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?startB():stopB()})},{threshold:.25}).observe($('bwrap'));else startB();
+var hero=document.querySelector('.hero');
+if(!reduce&&matchMedia('(hover:hover)').matches){hero.addEventListener('pointermove',function(e){var b=hero.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;bld.style.setProperty('--ry',(x*9)+'deg');bld.style.setProperty('--rx',(-y*6)+'deg')});hero.addEventListener('pointerleave',function(){bld.style.setProperty('--ry','0deg');bld.style.setProperty('--rx','0deg')})}
+
+/* étapes : l'étape la plus proche de la zone de lecture pilote le téléphone (PC, tablette, mobile) */
+var sc=all('.scene'),steps=all('.step'),cs=0;
+var mc=$('mcap');function cap(n){var s=steps[n];mc.innerHTML='<b>Étape '+(n+1)+' sur 4</b><h3>'+s.querySelector('h3').textContent+'</h3><p>'+s.querySelector('p').textContent+'</p>'}
+function fit(){var s=Math.max(.5,Math.min(1,(innerHeight-250)/600));document.documentElement.style.setProperty('--s',s)}
+function show(n){cs=n;cap(n);sc.forEach(function(s,k){s.classList.toggle('on',k===n)});steps.forEach(function(s,k){s.classList.toggle('on',k===n)})}
+function act(){var mob=innerWidth<=700,t=mob?innerHeight*.6:innerHeight/2,best=0,d=1e9;
+ steps.forEach(function(s,k){var r=s.getBoundingClientRect(),x=Math.abs((r.top+r.bottom)/2-t);if(x<d){d=x;best=k}});if(best!==cs)show(best)}
+
+/* retrait : simulation, aucune donnée enregistrée */
+var wB=all('.wd-btn'),wBal=all('.wd-bal'),wM=all('.wd-msg'),wR=all('.wd-replay'),ws='idle',wc=180000;
+function wAmt(to,anim){var from=wc,t0=null;wc=to;function set(v){wBal.forEach(function(e){e.textContent=fmt(v)+' F'})}
+ if(!anim||reduce){set(to);return}(function g(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/1200,1);set(Math.round(from+(to-from)*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(g)})(performance.now())}
+function wRender(){wB.forEach(function(b){b.classList.remove('busy','done');b.disabled=false;
+  if(ws==='idle')b.textContent='Retirer vers Mobile Money';
+  if(ws==='code'){b.classList.add('busy');b.disabled=true;b.textContent='Code envoyé sur WhatsApp…'}
+  if(ws==='run'){b.classList.add('busy');b.disabled=true;b.textContent='Retrait en cours…'}
+  if(ws==='done'){b.classList.add('done');b.disabled=true;b.textContent='✓ Retrait effectué'}});
+ wM.forEach(function(m){m.textContent=ws==='done'?'Démonstration : 180 000 F envoyés vers votre Mobile Money.':ws==='idle'?'Démonstration · confirmation par code WhatsApp':'Merci de patienter…'});
+ wR.forEach(function(x){x.hidden=ws!=='done'})}
+wRender();
+wB.forEach(function(b){b.addEventListener('click',function(){if(ws!=='idle')return;ws='code';wRender();setTimeout(function(){ws='run';wRender()},1200);setTimeout(function(){ws='done';wAmt(0,true);wRender()},2400)})});
+wR.forEach(function(x){x.addEventListener('click',function(){ws='idle';wAmt(180000,true);wRender()})});
+
+/* WhatsApp + révélations */
+var chat=$('chat');
+if('IntersectionObserver' in window){var i3=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){chat.classList.add('go');i3.disconnect()}})},{threshold:.35});i3.observe(chat);}else chat.classList.add('go');
+var pr=$('prog');
+function sp(){var m=document.documentElement.scrollHeight-innerHeight;pr.style.transform='scaleX('+(m>0?Math.min(scrollY/m,1):0)+')';mscroll();act()}
+addEventListener('scroll',sp,{passive:true});addEventListener('resize',function(){fit();sp()});fit();cap(0);sp();
+})();
+</script></body></html>
