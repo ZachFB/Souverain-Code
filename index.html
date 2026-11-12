@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@1,500&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
 /* ====== Jetons de design ====== */
@@ -261,6 +261,133 @@ input[type=range]{width:100%;accent-color:var(--g)}
 .step .no{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--g)}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* ====== Produit : Doma (palette propre à Doma, volontairement différente du reste du site) ====== */
+.dm-pad{padding-left:12px;padding-right:12px}
+.dm-band{--cl:#C0583C;--cl-d:#A8462F;--gd:#D9A648;--ink2:#241C15;--mu2:#6B6055;--line2:#E7DCC7;
+  position:relative;overflow:hidden;max-width:1240px;margin:0 auto;border-radius:36px;color:var(--ink2);font-family:'Work Sans',Manrope,system-ui,sans-serif;
+  background:radial-gradient(60% 55% at 88% 8%,rgba(192,88,60,.22),transparent 70%),radial-gradient(45% 45% at 4% 96%,rgba(217,166,72,.26),transparent 70%),linear-gradient(180deg,#F8F1E3,#F1E5CF);
+  box-shadow:0 50px 140px -50px rgba(192,88,60,.55),0 0 0 1px rgba(255,255,255,.08)}
+.dm-band :focus-visible{outline:3px solid var(--cl-d);outline-offset:3px}
+.dm-grid{display:grid;gap:3.5rem;align-items:center;padding:3.5rem 1.5rem}
+@media(min-width:1024px){.dm-grid{grid-template-columns:1.1fr .9fr;padding:5rem 3.75rem;gap:3rem}}
+.dm-eyebrow{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cl-d);font-weight:500}
+.dm-brand{display:flex;align-items:center;gap:14px;margin-top:1.4rem}
+.dm-brand img{width:68px;height:68px;border-radius:22%;box-shadow:0 14px 34px -12px rgba(192,88,60,.7),0 0 0 1px rgba(36,28,21,.08)}
+.dm-brand b{display:block;font-family:Fraunces,Georgia,serif;font-size:1.9rem;font-weight:700;line-height:1;letter-spacing:-.01em}
+.dm-brand small{color:var(--mu2);font-size:.85rem}
+.dm-h{font-family:Fraunces,Georgia,serif;font-weight:700;line-height:1.04;letter-spacing:-.02em;font-size:clamp(2.2rem,5vw,3.7rem);margin-top:1.4rem;max-width:14em}
+.dm-h em{font-style:normal;color:var(--cl-d)}
+.dm-sub{margin-top:1.2rem;font-size:1.1rem;line-height:1.65;color:var(--mu2);max-width:34em}
+.dm-status{display:inline-flex;align-items:center;gap:.7rem;margin-top:1.6rem;padding:.5rem 1rem;border-radius:999px;background:rgba(255,255,255,.65);border:1px solid rgba(192,88,60,.35);font-size:.88rem;font-weight:600;color:var(--ink2)}
+.dm-status i{flex:none;width:9px;height:9px;border-radius:50%;background:var(--gd);box-shadow:0 0 0 0 rgba(217,166,72,.7);animation:dmping 2.2s infinite}
+@keyframes dmping{70%{box-shadow:0 0 0 10px rgba(217,166,72,0)}100%{box-shadow:0 0 0 0 rgba(217,166,72,0)}}
+.dm-feats{list-style:none;padding:0;margin:1.8rem 0 0;display:grid;gap:.75rem;grid-template-columns:1fr}
+@media(min-width:560px){.dm-feats{grid-template-columns:1fr 1fr}}
+.dm-feats li{display:flex;gap:.8rem;align-items:flex-start;padding:.9rem 1rem;border-radius:16px;background:rgba(255,255,255,.62);border:1px solid var(--line2);transition:transform .3s,box-shadow .3s}
+.dm-feats li:hover{transform:translateY(-3px);box-shadow:0 18px 34px -20px rgba(192,88,60,.6)}
+.dm-feats .ic{flex:none;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(192,88,60,.14)}
+.dm-feats svg{width:20px;height:20px;fill:none;stroke:var(--cl-d);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.dm-feats b{display:block;font-size:.95rem;font-weight:600}
+.dm-feats span{display:block;font-size:.84rem;color:var(--mu2);line-height:1.45;margin-top:2px}
+.dm-cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.dm-btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.9rem 1.6rem;border-radius:12px;font-weight:600;font-size:1rem;text-decoration:none;
+  background:linear-gradient(180deg,#CD6446,#A8462F);color:#fff;box-shadow:0 12px 30px -10px rgba(192,88,60,.8);transition:transform .25s,filter .25s}
+.dm-btn:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.dm-btn.ghost{background:rgba(255,255,255,.6);color:var(--ink2);border:1px solid #D9C9AB;box-shadow:none}
+.dm-note{margin-top:1.2rem;font-size:.85rem;color:var(--mu2);max-width:36em;line-height:1.55}
+/* maquette téléphone */
+.dm-stage{position:relative;display:flex;justify-content:center;padding:1rem 0}
+.dm-stage::before{content:"";position:absolute;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(192,88,60,.38),transparent 68%);top:12%;filter:blur(24px);animation:dmbreath 7s ease-in-out infinite}
+@keyframes dmbreath{50%{transform:scale(1.12);opacity:.7}}
+.dm-phone{position:relative;width:272px;height:548px;border-radius:44px;background:#14141c;padding:9px;border:1px solid rgba(255,255,255,.18);box-shadow:0 50px 80px -30px rgba(36,28,21,.75),0 0 0 6px rgba(36,28,21,.05),inset 0 0 0 2px #232331}
+.dm-punch{position:absolute;top:17px;left:50%;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:#050508;z-index:5}
+.dm-screen{position:relative;width:100%;height:100%;border-radius:36px;overflow:hidden;background:#FBFAF7;color:#241C15;font-size:12.5px;line-height:1.4;padding:42px 14px 66px}
+.dm-st{position:absolute;top:0;left:0;right:0;height:38px;display:flex;justify-content:space-between;align-items:center;padding:6px 22px 0;font-size:11px;font-weight:600}
+.dm-screen h4{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:21px;line-height:1.1}
+.dm-screen .s{color:#6B6055;font-size:11.5px;margin:2px 0 11px}
+.dm-hc{background:linear-gradient(135deg,#1E2438,#2E3860);color:#fff;border-radius:18px;padding:14px;display:flex;align-items:center;gap:12px}
+.dm-ring{position:relative;width:68px;height:68px;flex:none}
+.dm-ring svg{width:68px;height:68px;transform:rotate(-90deg)}
+.dm-ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+.dm-ring .bg{stroke:rgba(255,255,255,.16)}
+.dm-ring .fg{stroke:#D9A648;stroke-dasharray:201;stroke-dashoffset:201;transition:stroke-dashoffset 1.5s .4s ease-out}
+.dm-stage.in .dm-ring .fg{stroke-dashoffset:36}
+.dm-ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:14px}
+.dm-hc small{color:#C9CFE5;font-size:11px;display:block}
+.dm-hc .big{font-family:Fraunces,Georgia,serif;font-size:21px;font-weight:700;line-height:1.1}
+.dm-lbl{font-weight:600;font-size:12.5px;margin:14px 0 7px}
+.dm-row{display:flex;align-items:center;gap:9px;background:#FBF3E4;border:1px solid #E7DCC7;border-radius:13px;padding:8px 10px;margin-bottom:7px}
+.dm-av{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:12px}
+.dm-row .t{flex:1;min-width:0}.dm-row .t b{display:block;font-size:12.5px}.dm-row .t span{font-size:11px;color:#6B6055}
+.dm-chipb{background:#A8462F;color:#fff;border-radius:999px;padding:5px 11px;font-size:11px;font-weight:600}
+.dm-tabs{position:absolute;left:0;right:0;bottom:0;height:58px;background:#FFFCF5;border-top:1px solid #E7DCC7;display:flex;justify-content:space-around;align-items:center;font-size:9px;color:#948A78}
+.dm-tabs span{display:flex;flex-direction:column;align-items:center;gap:3px}
+.dm-tabs span::before{content:"";width:17px;height:17px;border-radius:6px;background:#E7DCC7}
+.dm-tabs .cur{color:#A8462F;font-weight:600}.dm-tabs .cur::before{background:#A8462F}
+.dm-float{position:absolute;z-index:3;display:none;align-items:center;gap:10px;padding:9px 12px;border-radius:16px;background:rgba(255,252,245,.94);border:1px solid #E7DCC7;box-shadow:0 26px 44px -22px rgba(36,28,21,.55);font-size:13px;line-height:1.3;white-space:nowrap;animation:dmbob 5.5s ease-in-out infinite}
+.dm-float b{display:block;font-size:13.5px}.dm-float small{color:#6B6055;font-size:11.5px}
+.dm-float .d{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-weight:700;flex:none}
+.dm-float.a{left:-46px;top:38%}.dm-float.b{right:-26px;bottom:17%;animation-delay:-2.6s}
+.dm-float.a .d{background:rgba(62,155,108,.18);color:#2E6B4C}.dm-float.b .d{background:rgba(217,166,72,.25);color:#8a5f12}
+@keyframes dmbob{50%{transform:translateY(-8px)}}
+@media(min-width:1024px){.dm-float{display:flex}}
+@media(prefers-reduced-motion:reduce){.dm-status i,.dm-stage::before,.dm-float{animation:none}.dm-ring .fg{transition:none;stroke-dashoffset:36}}
+
+.dm-band,.dm-band *,.dm-band *::before,.dm-band *::after{box-sizing:border-box}
+/* ====== Carrousel de produits (section) ====== */
+.pr-wrap{max-width:1240px;margin:0 auto}
+.pr-head{margin-bottom:2.4rem}
+.pr-grad{background:linear-gradient(100deg,#ffd23f,#e8825f 55%,#c0583c);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pr-bar{display:flex;align-items:center;justify-content:flex-end;gap:1rem;flex-wrap:wrap;margin-bottom:1.1rem}
+.pr-ctl{display:flex;align-items:center;gap:.7rem}
+.pr-ctl .cnt{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.85rem;color:var(--mut);min-width:3.4em;text-align:center}
+.pr-ctl .hint{font-size:.8rem;color:var(--mut);margin-right:.4rem}
+.pr-arrow{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#fff;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);transition:background .2s,border-color .2s,transform .2s}
+.pr-arrow:hover:not(:disabled){background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4);transform:translateY(-1px)}
+.pr-arrow:disabled{opacity:.35;cursor:not-allowed}
+.pr-track{display:flex;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;scroll-behavior:smooth}
+.pr-track::-webkit-scrollbar{display:none}
+.pr-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start}
+.pr-slide .dm-band{width:100%}
+/* ====== Héros : rangée « Nos produits » ====== */
+.hprod{margin-top:2.4rem;width:100%;max-width:560px}
+@media(min-width:1024px){.hprod{margin-top:0;flex:none;width:450px}}
+.hp-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.7rem}
+.hp-lbl{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);display:flex;align-items:center;gap:.55rem}
+.hp-lbl::before{content:"";width:22px;height:1px;background:linear-gradient(90deg,transparent,#d9a648)}
+.hp-nav{display:none;align-items:center;gap:.5rem}
+.hprod.multi .hp-nav{display:flex}
+.hp-nav button{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;cursor:pointer;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18)}
+.hp-nav button:hover{background:rgba(255,255,255,.14)}
+.hp-nav .dots{display:flex;gap:6px}
+.hp-nav .dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28);transition:.25s}
+.hp-nav .dots i.on{width:18px;border-radius:99px;background:#d9a648}
+.hp-rail{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;scroll-behavior:smooth;border-radius:22px}
+.hp-rail::-webkit-scrollbar{display:none}
+.hp-card{position:relative;flex:0 0 100%;scroll-snap-align:start;display:flex;align-items:center;gap:1rem;padding:.9rem 1.1rem .9rem .9rem;border-radius:22px;overflow:hidden;color:#fff;text-decoration:none;
+  background:linear-gradient(120deg,rgba(192,88,60,.28),rgba(14,12,12,.72) 58%),rgba(10,10,14,.6);
+  border:1px solid rgba(217,166,72,.38);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 24px 60px -28px rgba(192,88,60,.75),inset 0 1px 0 rgba(255,255,255,.08);transition:transform .3s,border-color .3s,box-shadow .3s}
+.hp-card:hover{transform:translateY(-3px);border-color:rgba(217,166,72,.8);box-shadow:0 30px 70px -26px rgba(192,88,60,.95),inset 0 1px 0 rgba(255,255,255,.1)}
+.hp-card::before{content:"";position:absolute;top:-30%;bottom:-30%;left:-40%;width:28%;background:linear-gradient(100deg,transparent,rgba(255,236,200,.2),transparent);transform:skewX(-18deg);animation:hpShine 5.5s ease-in-out infinite;pointer-events:none}
+@keyframes hpShine{0%,55%{left:-40%}100%{left:140%}}
+.hp-logo{position:relative;flex:none;width:62px;height:62px;animation:hpFloat 4.6s ease-in-out infinite}
+.hp-logo img{width:100%;height:100%;border-radius:22%;display:block;box-shadow:0 12px 30px -10px rgba(192,88,60,.9),0 0 0 1px rgba(255,255,255,.14)}
+.hp-logo::after{content:"";position:absolute;inset:-5px;border-radius:28%;border:2px solid rgba(217,166,72,.55);animation:hpRing 3s ease-out infinite}
+@keyframes hpFloat{50%{transform:translateY(-4px)}}
+@keyframes hpRing{0%{transform:scale(.92);opacity:.9}100%{transform:scale(1.22);opacity:0}}
+.hp-txt{min-width:0;flex:1}
+.hp-name{display:flex;align-items:center;flex-wrap:wrap;gap:.35rem .7rem}
+.hp-name b{font-family:Fraunces,Georgia,serif;font-weight:700;font-size:1.3rem;line-height:1}
+.hp-tag{display:inline-flex;align-items:center;gap:.4rem;font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.22rem .6rem;border-radius:99px;background:rgba(217,166,72,.16);border:1px solid rgba(217,166,72,.5);color:#f3d08a}
+.hp-tag i{width:6px;height:6px;border-radius:50%;background:#d9a648;animation:dmping 2.2s infinite}
+.hp-d{display:block;margin-top:.35rem;font-size:.85rem;line-height:1.45;color:#c9c3ba}
+.hp-more{display:inline-flex;align-items:center;gap:.4rem;margin-top:.55rem;font-weight:700;font-size:.85rem;color:#f3d08a;white-space:nowrap}
+.hp-more svg{transition:transform .25s}
+.hp-card:hover .hp-more svg{transform:translateX(4px)}
+.hero-in>.hprod{animation-delay:.55s}
+@media(prefers-reduced-motion:reduce){.hp-card::before,.hp-logo,.hp-logo::after,.hp-tag i{animation:none}.hp-rail,.pr-track{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -299,7 +426,7 @@ input[type=range]{width:100%;accent-color:var(--g)}
     <a href="#hero" aria-label="Souverain Code — accueil"><svg class="logo logo-nav" viewBox="0 0 1008 116" role="img" aria-label="Souverain Code"><use href="#logo-wm" width="1008" height="116"/></svg></a>
     <span class="hidden xl:flex items-center gap-2 text-xs text-[color:var(--mut)] mono"><i class="live"></i>Systèmes &amp; développement actifs</span>
     <nav class="nav hidden md:flex items-center gap-7 text-sm font-medium" aria-label="Navigation principale">
-      <a href="#expertises">Expertises</a><a href="#demos">Démos</a><a href="#methode">Méthode</a><a href="#estimateur">Estimateur</a><a href="#contact">Contact</a>
+      <a href="#expertises">Expertises</a><a href="#produits">Doma</a><a href="#demos">Démos</a><a href="#methode">Méthode</a><a href="#estimateur">Estimateur</a><a href="#contact">Contact</a>
     </nav>
     <a href="#contact" class="btn solid !py-2 !px-4 text-sm whitespace-nowrap">Démarrer<span class="hidden sm:inline">&nbsp;un projet</span></a>
   </div>
@@ -313,7 +440,9 @@ input[type=range]{width:100%;accent-color:var(--g)}
     <p class="mono text-sm text-[color:var(--g)] mb-5 flex items-center gap-2"><i class="live"></i>Développement logiciel &amp; sécurité Web3</p>
     <h1 class="display text-4xl sm:text-5xl lg:text-7xl font-medium leading-[1.05] max-w-4xl">Le numérique souverain commence par un code que vous maîtrisez.</h1>
     <p class="mt-7 max-w-2xl text-lg text-[color:var(--mut)] leading-relaxed">Nous concevons des sites, des applications web, mobiles et desktop d'exception, puis nous auditons les smart contracts qui protègent votre capital. Du code rapide, propre et entièrement à vous.</p>
-    <div class="mt-10 flex flex-wrap gap-4">
+    <div class="hero-foot mt-10 lg:flex lg:items-end lg:justify-between lg:gap-10">
+    <div class="hero-foot-l">
+    <div class="flex flex-wrap gap-4">
       <a href="#contact" class="btn solid">Démarrer un projet</a>
       <a href="#estimateur" class="btn ghost">Estimer mon projet</a>
     </div>
@@ -322,6 +451,31 @@ input[type=range]{width:100%;accent-color:var(--g)}
       <li class="flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18d97b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Livraison par étapes</li>
       <li class="flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18d97b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Sécurité dès la conception</li>
     </ul>
+    </div>
+
+    <!-- Produits : une carte par produit. Pour en ajouter un, dupliquez une <a class="hp-card"> ci-dessous
+         et la <div class="pr-slide"> correspondante dans la section #produits (même ordre). -->
+    <div class="hprod" id="hp" aria-label="Nos produits">
+      <div class="hp-top">
+        <p class="hp-lbl">Nos produits</p>
+        <div class="hp-nav" aria-label="Parcourir les produits">
+          <button type="button" id="hpPrev" aria-label="Produit précédent"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <span class="dots" id="hpDots" aria-hidden="true"></span>
+          <button type="button" id="hpNext" aria-label="Produit suivant"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
+      <div class="hp-rail" id="hpRail">
+        <a class="hp-card" href="#produits" data-slide="0" aria-label="Doma, application de gestion locative, en cours de développement. En savoir plus">
+          <span class="hp-logo"><img src="/doma/logo.png" width="62" height="62" alt="Logo de Doma"></span>
+          <span class="hp-txt">
+            <span class="hp-name"><b>Doma</b><span class="hp-tag"><i></i>En cours de développement</span></span>
+            <span class="hp-d">La gestion locative sans tracasserie, pour les propriétaires et agences d'Afrique francophone.</span>
+            <span class="hp-more">En savoir plus<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </span>
+        </a>
+      </div>
+    </div>
+    </div><!-- /hero-foot -->
   </div>
 </section>
 
@@ -382,6 +536,73 @@ input[type=range]{width:100%;accent-color:var(--g)}
       </ul>
     </article>
   </div>
+</section>
+
+<!-- ============ PRODUIT : DOMA ============ -->
+<section id="produits" class="dm-pad py-10 sm:py-16" aria-labelledby="pr-title">
+  <div class="pr-wrap">
+    <div class="pr-head">
+      <p class="rv mono text-sm text-[color:var(--g)] flex items-center gap-2"><i class="live"></i>Nos produits</p>
+      <h2 id="pr-title" class="rv display text-4xl sm:text-5xl lg:text-6xl font-medium leading-[1.05] mt-4 max-w-4xl" style="--d:.06s">Les applications que nous concevons <span class="pr-grad">pour l'Afrique.</span></h2>
+      <p class="rv mt-5 text-lg text-[color:var(--mut)] max-w-2xl leading-relaxed" style="--d:.12s">Au-delà du sur-mesure, Souverain Code développe ses propres produits, pensés pour les réalités des entrepreneurs et des familles d'Afrique de l'Ouest.</p>
+    </div>
+    <div class="pr-bar">
+      <span class="pr-count-lbl" aria-hidden="true"></span>
+      <div class="pr-ctl" role="group" aria-label="Parcourir les produits">
+        <button type="button" class="pr-arrow" id="prPrev" aria-label="Produit précédent"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <span class="cnt" id="prCnt" aria-live="polite">1 / 1</span>
+        <button type="button" class="pr-arrow" id="prNext" aria-label="Produit suivant"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="pr-track" id="prTrack">
+  <div class="pr-slide" id="prod-doma">
+  <div class="dm-band">
+    <div class="dm-grid">
+      <div>
+        <p class="rv dm-eyebrow">Produit n°1 · Application mobile</p>
+        <div class="rv dm-brand" style="--d:.05s"><img src="/doma/logo.png" width="68" height="68" alt="Logo de l'application Doma"><div><b>Doma</b><small>par Souverain Code</small></div></div>
+        <h3 id="dm-title" class="rv dm-h" style="--d:.1s">La gestion locative <em>sans tracasserie.</em></h3>
+        <p class="rv dm-sub" style="--d:.15s">Doma aide les propriétaires et les agences d'Afrique de l'Ouest à suivre les loyers, relancer sur WhatsApp et encaisser par Mobile Money, sans cahier ni fichier Excel.</p>
+        <p class="rv dm-status" style="--d:.2s"><i aria-hidden="true"></i>Produit en cours de développement · bientôt sur Google Play</p>
+
+        <ul class="rv dm-feats" style="--d:.25s">
+          <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m6 10V5m6 14v-7m4 7H2"/></svg></span><div><b>Loyers toujours clairs</b><span>Payé, dû, en retard : calculé pour vous.</span></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.7 7L4 20l1.1-4.3A8 8 0 1 1 21 12z"/></svg></span><div><b>Relances WhatsApp</b><span>Un rappel poli, avec votre nom.</span></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h3m3-3v4"/></svg></span><div><b>Lien et QR de paiement</b><span>Le locataire paie en Mobile Money.</span></div></li>
+          <li><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM3 7l2-3h12v3"/><circle cx="16.5" cy="13.5" r="1.2"/></svg></span><div><b>Solde et retrait</b><span>Retirez vers votre Mobile Money.</span></div></li>
+        </ul>
+
+        <div class="rv dm-cta" style="--d:.3s">
+          <a class="dm-btn" href="/doma">Découvrir Doma<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="dm-btn ghost" href="/doma#tarifs">Voir les tarifs</a>
+        </div>
+        <p class="rv dm-note" style="--d:.35s">Doma n'est pas encore disponible en téléchargement : le déploiement sur le Google Play Store est prévu plus tard. La présentation, les tarifs et la prise de contact sont déjà en ligne.</p>
+      </div>
+
+      <div class="rv dm-stage" style="--d:.15s" aria-hidden="true">
+        <div class="dm-float a"><span class="d">✓</span><div><b>+ 45 000 FCFA</b><small>Reçu envoyé</small></div></div>
+        <div class="dm-float b"><span class="d">✓✓</span><div><b>Relance lue</b><small>par Mme Dossou</small></div></div>
+        <div class="dm-phone"><span class="dm-punch"></span>
+          <div class="dm-screen">
+            <div class="dm-st"><span>09:12</span><span>●●● ▮</span></div>
+            <h4>Aujourd'hui</h4><p class="s">Bonjour M. Adjovi</p>
+            <div class="dm-hc">
+              <div class="dm-ring"><svg viewBox="0 0 74 74"><circle class="bg" cx="37" cy="37" r="32"/><circle class="fg" cx="37" cy="37" r="32"/></svg><b>82 %</b></div>
+              <div><small>Encaissé ce mois</small><div class="big">1 245 000 F</div><small>sur 1 520 000 attendus</small></div>
+            </div>
+            <div class="dm-lbl">À faire maintenant</div>
+            <div class="dm-row"><span class="dm-av" style="background:#A8462F">MD</span><div class="t"><b>Mme Dossou</b><span>Retard 3 j · 45 000 F</span></div><span class="dm-chipb">Relancer</span></div>
+            <div class="dm-row"><span class="dm-av" style="background:#B8842E">KT</span><div class="t"><b>M. Tossou</b><span>Reste 15 000 F</span></div><span class="dm-chipb">Relancer</span></div>
+            <div class="dm-row"><span class="dm-av" style="background:#B8842E">AG</span><div class="t"><b>Mme Gnanvi</b><span>Dû bientôt · 25 000 F</span></div><span class="dm-chipb">Rappeler</span></div>
+            <div class="dm-tabs"><span class="cur">Aujourd'hui</span><span>Résidences</span><span>Locataires</span><span>Plus</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div><!-- /pr-slide Doma -->
+    </div><!-- /pr-track -->
+  </div><!-- /pr-wrap -->
 </section>
 
 <!-- ============ DÉMOS INTERACTIVES ============ -->
@@ -726,7 +947,7 @@ input[type=range]{width:100%;accent-color:var(--g)}
     <div><svg class="logo logo-foot" viewBox="0 0 1008 116" role="img" aria-label="Souverain Code"><use href="#logo-wm" width="1008" height="116"/></svg>
       <p class="text-sm text-[color:var(--mut)] mt-3">Développement logiciel et audit de smart contracts.</p></div>
     <nav class="flex flex-wrap gap-6 text-sm text-[color:var(--mut)]" aria-label="Pied de page">
-      <a class="hover:text-white" href="#expertises">Expertises</a><a class="hover:text-white" href="#demos">Démos</a><a class="hover:text-white" href="#methode">Méthode</a><a class="hover:text-white" href="#estimateur">Estimateur</a><a class="hover:text-white" href="#terminal">Audit</a><a class="hover:text-white" href="#manifeste">Manifeste</a>
+      <a class="hover:text-white" href="#expertises">Expertises</a><a class="hover:text-white" href="/doma">Doma</a><a class="hover:text-white" href="#demos">Démos</a><a class="hover:text-white" href="#methode">Méthode</a><a class="hover:text-white" href="#estimateur">Estimateur</a><a class="hover:text-white" href="#terminal">Audit</a><a class="hover:text-white" href="#manifeste">Manifeste</a>
       <a class="hover:text-white" href="#contact">Contact</a>
     </nav>
     <p class="text-xs text-[color:var(--mut)]">© <span id="yr">2026</span> Souverain Code. Tous droits réservés.</p>
@@ -743,6 +964,46 @@ document.getElementById('yr').textContent=new Date().getFullYear();
   if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('in'));return;}
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12,rootMargin:'0px 0px -6% 0px'});
   els.forEach(e=>io.observe(e));
+})();
+
+/* ====== Produits : héros + carrousel de la section (générique, prêt pour d'autres produits) ====== */
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const rail=document.getElementById('hpRail'),hp=document.getElementById('hp');
+  const track=document.getElementById('prTrack');
+  const slides=track?[...track.querySelectorAll('.pr-slide')]:[];
+  const prev=document.getElementById('prPrev'),next=document.getElementById('prNext'),cnt=document.getElementById('prCnt'),hint=document.getElementById('prHint');
+  const idx=(el)=>{const w=el.clientWidth+24;return Math.max(0,Math.min(slides.length-1,Math.round(el.scrollLeft/w)))};
+  function upd(){
+    if(!track)return;const n=slides.length,i=idx(track);
+    cnt.textContent=(i+1)+' / '+n;prev.disabled=i<=0;next.disabled=i>=n-1;
+    if(hint)hint.hidden=n>1;
+  }
+  if(track){
+    prev.addEventListener('click',()=>track.scrollBy({left:-(track.clientWidth+24)}));
+    next.addEventListener('click',()=>track.scrollBy({left:track.clientWidth+24}));
+    track.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});
+    upd();
+  }
+  /* Héros : une carte par produit, défilement automatique seulement s'il y en a plusieurs */
+  if(rail&&hp){
+    const cards=[...rail.querySelectorAll('.hp-card')],n=cards.length;
+    const dots=document.getElementById('hpDots'),pb=document.getElementById('hpPrev'),nb=document.getElementById('hpNext');
+    const step=()=>rail.clientWidth+14,cur=()=>Math.max(0,Math.min(n-1,Math.round(rail.scrollLeft/step())));
+    const go=i=>rail.scrollTo({left:((i%n)+n)%n*step()});
+    if(n>1){
+      hp.classList.add('multi');dots.innerHTML=cards.map(()=>'<i></i>').join('');
+      const paint=()=>[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===cur()));
+      rail.addEventListener('scroll',()=>requestAnimationFrame(paint),{passive:true});paint();
+      pb.addEventListener('click',()=>go(cur()-1));nb.addEventListener('click',()=>go(cur()+1));
+      if(!reduce){let t=setInterval(()=>go(cur()+1),5500);
+        ['mouseenter','focusin','touchstart'].forEach(e=>hp.addEventListener(e,()=>clearInterval(t),{passive:true}));}
+    }
+    /* « En savoir plus » : ouvre la bonne diapositive dans la section produits */
+    cards.forEach(c=>c.addEventListener('click',()=>{
+      const k=+c.dataset.slide||0;if(track){track.style.scrollBehavior='auto';track.scrollLeft=k*(track.clientWidth+24);track.style.scrollBehavior='';upd();}
+    }));
+  }
 })();
 
 /* ====== Bandeau des technologies : on duplique pour une boucle sans coupure ====== */
