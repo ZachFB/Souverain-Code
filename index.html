@@ -388,6 +388,13 @@ input[type=range]{width:100%;accent-color:var(--g)}
 .hp-card:hover .hp-more svg{transform:translateX(4px)}
 .hero-in>.hprod{animation-delay:.55s}
 @media(prefers-reduced-motion:reduce){.hp-card::before,.hp-logo,.hp-logo::after,.hp-tag i{animation:none}.hp-rail,.pr-track{scroll-behavior:auto}}
+
+/* ====== L'entreprise ====== */
+.ent dt{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
+.ent dd{margin-top:.35rem;color:#fff;font-weight:500;line-height:1.5}
+.ent a{color:#fff;text-decoration:underline;text-decoration-color:rgba(255,210,63,.6);text-underline-offset:4px;transition:color .2s}
+.ent a:hover{color:var(--y)}
+.ent-ct{padding-top:1.4rem;border-top:1px solid rgba(255,255,255,.1)}
 </style>
 </head>
 <body>
@@ -928,6 +935,26 @@ input[type=range]{width:100%;accent-color:var(--g)}
 </section>
 
 <!-- ============ SOUVERAINETÉ & MANIFESTE ============ -->
+<!-- ============ L'ENTREPRISE ============ -->
+<section id="entreprise" class="mx-auto max-w-6xl px-5 py-24 grid gap-12 lg:grid-cols-5">
+  <div class="rv lg:col-span-2">
+    <p class="mono text-sm text-[color:var(--g)] flex items-center gap-2"><i class="live"></i>L'entreprise</p>
+    <h2 class="display text-3xl sm:text-4xl font-medium mt-3">Une entreprise en règle, à qui vous pouvez faire confiance.</h2>
+    <p class="mt-5 text-[color:var(--mut)] leading-relaxed">Souverain Code est un studio de développement logiciel basé à Cotonou. Nous concevons des sites, des applications web, mobiles et desktop sur mesure, nous auditons les smart contracts, et nous développons nos propres produits, comme <a href="/doma" class="text-white underline decoration-[color:var(--y)] underline-offset-4 hover:text-[color:var(--y)]">Doma</a>, pensés pour l'Afrique.</p>
+    <p class="mt-4 text-[color:var(--mut)] leading-relaxed">Être une société enregistrée nous permet de travailler avec des partenaires de paiement et de messagerie, et de vous remettre des factures et des contrats en bonne et due forme.</p>
+  </div>
+  <div class="rv card static lg:col-span-3" style="--d:.1s">
+    <dl class="grid gap-x-8 gap-y-6 sm:grid-cols-2 ent">
+      <div><dt>Dénomination</dt><dd>SOUVERAIN CODE <span class="text-[color:var(--mut)]">(sigle S-Code)</span></dd></div>
+      <div><dt>Forme juridique</dt><dd>Société à responsabilité limitée</dd></div>
+      <div><dt>RCCM</dt><dd class="mono">RB/COT/26 B 44522</dd></div>
+      <div><dt>IFU</dt><dd class="mono">3202675819667</dd></div>
+      <div class="sm:col-span-2"><dt>Siège social</dt><dd>Ilot 1625, quartier Aïbatin Dodo, parcelle C, Cotonou (Bénin)</dd></div>
+      <div class="sm:col-span-2 ent-ct"><dt>Contact</dt><dd><a href="https://wa.me/2290140151348" target="_blank" rel="noopener">+229 01 40 15 13 48</a><span aria-hidden="true"> · </span><a href="mailto:hello@souveraincode.com">hello@souveraincode.com</a></dd></div>
+    </dl>
+  </div>
+</section>
+
 <section id="manifeste" class="manifest px-5 py-28">
   <div class="mx-auto max-w-4xl relative">
     <div class="flex items-center justify-center gap-5" aria-hidden="true"><i class="h-px w-24 bg-gradient-to-r from-transparent to-white/40"></i><svg width="76" height="14" viewBox="0 0 76 14"><circle cx="7" cy="7" r="6" fill="#5fe6f5"/><circle cx="38" cy="7" r="6" fill="#d62839"/><circle cx="69" cy="7" r="6" fill="#18d97b"/></svg><i class="h-px w-24 bg-gradient-to-l from-transparent to-white/40"></i></div>
@@ -948,6 +975,7 @@ input[type=range]{width:100%;accent-color:var(--g)}
       <p class="text-sm text-[color:var(--mut)] mt-3">Développement logiciel et audit de smart contracts.</p></div>
     <nav class="flex flex-wrap gap-6 text-sm text-[color:var(--mut)]" aria-label="Pied de page">
       <a class="hover:text-white" href="#expertises">Expertises</a><a class="hover:text-white" href="/doma">Doma</a><a class="hover:text-white" href="#demos">Démos</a><a class="hover:text-white" href="#methode">Méthode</a><a class="hover:text-white" href="#estimateur">Estimateur</a><a class="hover:text-white" href="#terminal">Audit</a><a class="hover:text-white" href="#manifeste">Manifeste</a>
+      <a class="hover:text-white" href="#entreprise">L'entreprise</a>
       <a class="hover:text-white" href="#contact">Contact</a>
     </nav>
     <p class="text-xs text-[color:var(--mut)]">© <span id="yr">2026</span> Souverain Code. Tous droits réservés.</p>
