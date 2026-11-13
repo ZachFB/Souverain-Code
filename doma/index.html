@@ -22,7 +22,7 @@
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/doma/logo.png" />
-    <link rel="icon" href="/doma/logo.png" />
+    <link rel="icon" type="image/svg+xml" href="/doma/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -2083,19 +2083,74 @@
           display: block;
         }
       }
+
+      /* Logo « Parlons de Doma » : même rendu incorporé qu'en PC, sur mobile aussi */
       @media (max-width: 900px) {
         .sig .bgh {
-          position: relative;
-          right: auto;
-          bottom: auto;
-          display: block;
-          width: min(60vw, 250px);
-          height: auto;
-          margin: 0 8% 28px auto; /* un peu décalé à droite, pour l'effet « jeté » */
+          position: absolute;
+          width: 480px;
+          height: 448px;
+          right: -90px;
+          bottom: -60px;
+          opacity: 0.1;
+          transform: rotate(-6deg);
+          margin: 0;
+          pointer-events: none;
+        }
+      }
+
+      /* Démo « Ajouter un locataire » */
+      .add-ok {
+        position: absolute;
+        inset: 0 0 62px 0;
+        background: #fbfaf7;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .aok-c {
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        background: #e7f0e8;
+        display: grid;
+        place-items: center;
+        margin-bottom: 14px;
+        animation: aokpop 0.6s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+      }
+      .aok-c svg {
+        width: 44px;
+        height: 44px;
+        stroke: #2e6b4c;
+        stroke-width: 3.5;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 30;
+        stroke-dashoffset: 30;
+        animation: aokdraw 0.5s 0.3s ease forwards;
+      }
+      @keyframes aokpop {
+        from {
+          transform: scale(0.4);
+          opacity: 0;
+        }
+        to {
+          transform: none;
           opacity: 1;
-          transform: rotate(-6deg); /* l'inclinaison est conservée */
-          --roof: #f6eede !important;
-          --wall: #e3a995 !important; /* mur un peu plus foncé pour faire ressortir la porte */
+        }
+      }
+      @keyframes aokdraw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .aok-c svg {
+          stroke-dashoffset: 0;
         }
       }
     </style>
@@ -2490,9 +2545,20 @@
                       <div class="fld">
                         <small>Loyer</small><b>45 000 FCFA</b>
                       </div>
-                      <button class="send" tabindex="-1">
+                      <button class="send add-btn" type="button">
                         Ajouter le locataire
                       </button>
+                      <div class="add-ok" hidden>
+                        <div class="aok-c">
+                          <svg viewBox="0 0 24 24">
+                            <path d="M5 12.5l4.5 4.5L19 7" />
+                          </svg>
+                        </div>
+                        <h3 class="ah">Locataire ajouté</h3>
+                        <p class="as" style="margin: 4px auto 0">
+                          Awa Dossou · Appartement A2
+                        </p>
+                      </div>
                     </div>
                     <div class="scene">
                       <div class="wtop">
@@ -3082,7 +3148,40 @@
           var s = Math.max(0.5, Math.min(1, (innerHeight - 250) / 600));
           document.documentElement.style.setProperty("--s", s);
         }
+        /* Démo « Ajouter un locataire » */
+        var ab = document.querySelector(".add-btn"),
+          ao = document.querySelector(".add-ok"),
+          addS = "idle",
+          addT = [];
+        function addReset() {
+          addT.forEach(clearTimeout);
+          addT = [];
+          addS = "idle";
+          ao.hidden = true;
+          ab.classList.remove("busy");
+          ab.disabled = false;
+          ab.textContent = "Ajouter le locataire";
+        }
+        ab.addEventListener("click", function () {
+          if (addS !== "idle") return;
+          addS = "run";
+          ab.classList.add("busy");
+          ab.disabled = true;
+          ab.textContent = "Ajout en cours…";
+          addT.push(
+            setTimeout(function () {
+              ao.hidden = false;
+              addS = "done";
+            }, 1400),
+          );
+          addT.push(
+            setTimeout(function () {
+              steps[1].scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 3000),
+          );
+        });
         function show(n) {
+          if (n === 0 && addS !== "idle") addReset();
           cs = n;
           cap(n);
           sc.forEach(function (s, k) {
