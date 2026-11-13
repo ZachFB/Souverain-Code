@@ -2083,6 +2083,21 @@
           display: block;
         }
       }
+      @media (max-width: 900px) {
+        .sig .bgh {
+          position: relative;
+          right: auto;
+          bottom: auto;
+          display: block;
+          width: min(60vw, 250px);
+          height: auto;
+          margin: 0 8% 28px auto; /* un peu décalé à droite, pour l'effet « jeté » */
+          opacity: 1;
+          transform: rotate(-6deg); /* l'inclinaison est conservée */
+          --roof: #f6eede !important;
+          --wall: #e3a995 !important; /* mur un peu plus foncé pour faire ressortir la porte */
+        }
+      }
     </style>
   </head>
   <body>
@@ -2784,9 +2799,7 @@
                     >hello@souveraincode.com</a
                   >
                 </p>
-                <p>
-                  Numéro d’envoi des messages Doma : +229 01 54 30 72 71
-                </p>
+                <p>Numéro d’envoi des messages Doma : +229 01 54 30 72 71</p>
               </div>
               <p class="legal-row">
                 <a href="/doma/confidentialite">Politique de confidentialité</a
