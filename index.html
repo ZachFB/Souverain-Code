@@ -7,12 +7,26 @@
 <meta name="description" content="Souverain Code conçoit des sites et applications web, mobiles et desktop, et audite les smart contracts. Du code maîtrisé, performant et sécurisé.">
 <meta name="theme-color" content="#050508">
 <script>document.documentElement.classList.add('js')</script>
+<!-- Écran de chargement : uniquement à la première visite sur ce navigateur -->
+<script>try{if(!localStorage.getItem('sc-seen'))document.documentElement.classList.add('ldr')}catch(e){}</script>
+<style>
+#loader{display:none}
+html.ldr{overflow:hidden}
+html.ldr #loader{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.6rem;background:#050508;opacity:1;transition:opacity .5s ease}
+html.ldr #loader.out{opacity:0;pointer-events:none}
+#loader .ldr-logo{height:30px;width:auto;max-width:78vw;aspect-ratio:1008/116;display:block;overflow:visible;animation:ldrpulse 1.8s ease-in-out infinite}
+@media(min-width:640px){#loader .ldr-logo{height:40px}}
+#loader .ldr-bar{width:min(220px,56vw);height:2px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}
+#loader .ldr-bar i{display:block;height:100%;width:40%;border-radius:2px;background:linear-gradient(90deg,transparent,#18d97b,transparent);animation:ldrbar 1.2s ease-in-out infinite}
+@keyframes ldrbar{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+@keyframes ldrpulse{0%,100%{opacity:.85}50%{opacity:1}}
+</style>
 <!-- Favicon petite taille : S blanc + 3 pierres (cyan, sardoine rouge, émeraude) -->
 <link id="fav" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' role='img' aria-label='Souverain Code'%3E%3Crect x='6' y='6' width='500' height='500' rx='116' fill='%2307070d'/%3E%3Cpath transform='translate(256 215) scale(.92) translate(-256 -256)' d='M119.02 302.8H187.78Q189.58 315.04 198.94 324.4Q208.3 333.76 223.96 338.8Q239.62 343.84 260.5 343.84Q290.38 343.84 307.48 335.56Q324.58 327.28 324.58 312.16Q324.58 300.64 314.68 294.34Q304.78 288.04 277.78 285.16L225.58 279.76Q171.22 274.36 146.92 254.56Q122.62 234.76 122.62 200.56Q122.62 173.56 138.64 154.48Q154.66 135.4 183.64 125.32Q212.62 115.24 251.5 115.24Q290.02 115.24 319.54 126.4Q349.06 137.56 366.7 157.36Q384.34 177.16 385.78 203.8H317.02Q315.58 192.64 307.12 184.9Q298.66 177.16 284.44 172.66Q270.22 168.16 250.42 168.16Q223.06 168.16 207.04 175.9Q191.02 183.64 191.02 198.04Q191.02 208.84 200.56 214.96Q210.1 221.08 234.58 223.96L289.66 230.08Q327.46 234.04 350.14 242.68Q372.82 251.32 382.9 266.44Q392.98 281.56 392.98 304.6Q392.98 332.32 376.24 353.02Q359.5 373.72 329.44 385.24Q299.38 396.76 259.42 396.76Q218.02 396.76 186.88 384.88Q155.74 373 137.92 351.94Q120.1 330.88 119.02 302.8Z' fill='%23fff'/%3E%3Ccircle cx='160' cy='412' r='30' fill='%235fe6f5'/%3E%3Ccircle cx='256' cy='412' r='30' fill='%23d62839'/%3E%3Ccircle cx='352' cy='412' r='30' fill='%2318d97b'/%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@1,500&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@1,500&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;600&display=block" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
 /* ====== Jetons de design ====== */
@@ -416,6 +430,37 @@ input[type=range]{width:100%;accent-color:var(--g)}
     <path fill="url(#emg)" d="M855.6 134.11Q844.68 134.11 836.49 130.27Q828.3 126.43 823.75 119.55Q819.21 112.68 819.21 103.68Q819.21 94.58 823.75 87.76Q828.3 80.93 836.54 77.09Q844.78 73.25 855.6 73.25Q866.52 73.25 874.76 77.09Q882.99 80.93 887.54 87.76Q892.09 94.58 892.09 103.68Q892.09 112.78 887.54 119.6Q882.99 126.43 874.76 130.27Q866.52 134.11 855.6 134.11ZM855.6 119.96Q861.16 119.96 865.05 117.98Q868.94 116.01 871.02 112.37Q873.09 108.73 873.09 103.68Q873.09 98.63 871.02 94.99Q868.94 91.35 865.05 89.38Q861.16 87.4 855.6 87.4Q850.24 87.4 846.3 89.38Q842.36 91.35 840.23 94.99Q838.11 98.63 838.11 103.68Q838.11 108.73 840.23 112.37Q842.36 116.01 846.3 117.98Q850.24 119.96 855.6 119.96Z"/>
   </symbol>
 </svg>
+
+<!-- Écran de chargement (première visite) -->
+<div id="loader" role="status" aria-live="polite" aria-label="Chargement de Souverain Code">
+  <svg class="logo ldr-logo" viewBox="0 0 1008 116" aria-hidden="true"><use href="#logo-wm" width="1008" height="116"/></svg>
+  <div class="ldr-bar" aria-hidden="true"><i></i></div>
+</div>
+<script>
+(function(){
+  var h=document.documentElement,l=document.getElementById('loader');
+  if(!l||!h.classList.contains('ldr'))return;
+  var done=false,t0=Date.now(),MIN=700,MAX=3500;
+  function finish(){
+    if(done)return;done=true;
+    var wait=Math.max(0,MIN-(Date.now()-t0));
+    setTimeout(function(){
+      try{localStorage.setItem('sc-seen','1')}catch(e){}
+      l.classList.add('out');
+      setTimeout(function(){h.classList.remove('ldr')},550);
+    },wait);
+  }
+  /* Sécurité : on ne bloque jamais la page plus de 3,5 s */
+  setTimeout(finish,MAX);
+  /* On attend la fin du chargement de la page, puis celle des polices */
+  function fontsReady(){
+    var f=document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve();
+    f.then(finish,finish);
+  }
+  if(document.readyState==='complete')fontsReady();
+  else addEventListener('load',fontsReady);
+})();
+</script>
 
 <!-- Notifications -->
 <div id="toasts" aria-live="polite" aria-atomic="false"></div>
